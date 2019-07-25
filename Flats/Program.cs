@@ -23,7 +23,7 @@ namespace Flats
                 return;
             }
 
-            Console.WriteLine("Квартира расположена в {0} подъезде, на {1} этаже, {2}", 
+            Console.WriteLine("Квартира расположена в {0} подъезде, на {1} этаже, {2}",
                 GetFoundEntrance(), GetFoundLevel(), GetFlatLocation());
         }
 
