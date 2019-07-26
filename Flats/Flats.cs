@@ -2,7 +2,7 @@
 
 namespace Flats
 {
-    class Program
+    class Flats
     {
         private const int flatsOnLevel = 4;
 
