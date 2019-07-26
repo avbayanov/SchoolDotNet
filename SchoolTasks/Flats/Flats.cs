@@ -59,12 +59,12 @@ namespace Flats
 
         private static void CalculateFoundEntrance()
         {
-            foundEntrance = (int)Math.Ceiling((double)flat / flatsInEntrance);
+            foundEntrance = (int) Math.Ceiling((double) flat / flatsInEntrance);
         }
 
         private static void CalculateFoundLevel()
         {
-            foundLevel = (int)Math.Ceiling((flat - flatsInEntrance * (foundEntrance - 1)) / (double)flatsOnLevel);
+            foundLevel = (int) Math.Ceiling((flat - flatsInEntrance * (foundEntrance - 1)) / (double) flatsOnLevel);
         }
 
         private static void CalculateOnLevelLocation()

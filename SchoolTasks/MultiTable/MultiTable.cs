@@ -6,10 +6,10 @@ namespace MultiTable
     {
         static void Main(string[] args)
         {
-            printMultiTable(10, 10);
+            PrintMultiTable(10, 10);
         }
 
-        private static void printMultiTable(int width, int height)
+        private static void PrintMultiTable(int width, int height)
         {
             int maxNumber = width * height;
 
@@ -20,18 +20,18 @@ namespace MultiTable
                 maxNumber /= 10;
             }
 
-            printHead(width, cellWidth);
-            printBody(width, height, cellWidth);
+            PrintHead(width, cellWidth);
+            PrintBody(width, height, cellWidth);
         }
 
-        private static void printHead(int width, int cellWidth)
+        private static void PrintHead(int width, int cellWidth)
         {
             Console.Write("{0, " + cellWidth + "}", "");
             Console.Write("|");
 
             for (int i = 1; i <= width; i++)
             {
-                Console.Write("{0, " + cellWidth +"}", i);
+                Console.Write("{0, " + cellWidth + "}", i);
             }
 
             Console.WriteLine();
@@ -41,7 +41,8 @@ namespace MultiTable
                 if (i != cellWidth)
                 {
                     Console.Write("-");
-                } else
+                }
+                else
                 {
                     Console.Write("+");
                 }
@@ -50,7 +51,7 @@ namespace MultiTable
             Console.WriteLine();
         }
 
-        private static void printBody(int width, int height, int cellWidth)
+        private static void PrintBody(int width, int height, int cellWidth)
         {
             for (int i = 1; i <= height; i++)
             {
