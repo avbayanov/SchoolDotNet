@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{731EF7B4-62FE-499D-AF11-127C40927D2A}</ProjectGuid>
+    <ProjectGuid>{AF4800B5-36DC-47BC-A2DD-DC794C640B72}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Flats</RootNamespace>
-    <AssemblyName>Flats</AssemblyName>
+    <RootNamespace>Palindrome</RootNamespace>
+    <AssemblyName>Palindrome</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Palindrome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
