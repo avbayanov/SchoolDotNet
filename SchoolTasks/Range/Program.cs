@@ -14,7 +14,7 @@ namespace Range
             CheckForInsideRangeAndPrint(range, 20);
         }
 
-        static void CheckForInsideRangeAndPrint(Range range, double input)
+        private static void CheckForInsideRangeAndPrint(Range range, double input)
         {
             Console.WriteLine(input + " is " + (range.IsInside(input) ? "inside" : "outside") + " of range");
         }
