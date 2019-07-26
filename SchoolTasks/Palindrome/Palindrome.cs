@@ -13,7 +13,7 @@ namespace Palindrome
             Console.WriteLine("это " + (IsPalindrome(input) ? "" : "не") + " палиндром");
         }
 
-        static bool IsPalindrome(string input)
+        private static bool IsPalindrome(string input)
         {
             for (int leftIndex = 0, rightIndex = input.Length - 1; leftIndex <= rightIndex; leftIndex++, rightIndex--)
             {
