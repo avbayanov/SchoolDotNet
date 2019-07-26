@@ -4,30 +4,32 @@ namespace Flats
 {
     class Program
     {
-        const int flatsOnLevel = 4;
+        private const int flatsOnLevel = 4;
 
-        static int levels;
-        static int entrances;
-        static int flat;
+        private static int levels;
+        private static int entrances;
+        private static int flat;
 
-        static int flatsInEntrance;
-        static int foundEntrance;
+        private static int flatsInEntrance;
+        private static int foundEntrance;
+        private static int foundLevel;
+        private static string onLevelLocation;
 
         static void Main(string[] args)
         {
             GetUserData();
 
-            if (!IsFlatExists())
+            if (!CalculateLocation())
             {
                 Console.WriteLine("Такой квартиры не существует");
                 return;
             }
 
             Console.WriteLine("Квартира расположена в {0} подъезде, на {1} этаже, {2}",
-                GetFoundEntrance(), GetFoundLevel(), GetFlatLocation());
+                foundEntrance, foundLevel, onLevelLocation);
         }
 
-        static void GetUserData()
+        private static void GetUserData()
         {
             Console.Write("Введите число этажей: ");
             levels = Convert.ToInt32(Console.ReadLine());
@@ -39,7 +41,7 @@ namespace Flats
             flat = Convert.ToInt32(Console.ReadLine());
         }
 
-        static bool IsFlatExists()
+        private static bool CalculateLocation()
         {
             flatsInEntrance = flatsOnLevel * levels;
 
@@ -48,35 +50,44 @@ namespace Flats
                 return false;
             }
 
+            CalculateFoundEntrance();
+            CalculateFoundLevel();
+            CalculateOnLevelLocation();
+
             return true;
         }
 
-        static int GetFoundEntrance()
+        private static void CalculateFoundEntrance()
         {
-            return foundEntrance = (int)Math.Ceiling((double)flat / flatsInEntrance);
+            foundEntrance = (int)Math.Ceiling((double)flat / flatsInEntrance);
         }
 
-        static int GetFoundLevel()
+        private static void CalculateFoundLevel()
         {
-            return (int)Math.Ceiling((flat - flatsInEntrance * (foundEntrance - 1)) / (double)flatsOnLevel);
+            foundLevel = (int)Math.Ceiling((flat - flatsInEntrance * (foundEntrance - 1)) / (double)flatsOnLevel);
         }
 
-        static string GetFlatLocation()
+        private static void CalculateOnLevelLocation()
         {
             int positionOnLevel = flat % flatsOnLevel;
 
             switch (positionOnLevel)
             {
                 case 1:
-                    return "ближняя слева";
+                    onLevelLocation = "ближняя слева";
+                    break;
                 case 2:
-                    return "дальняя слева";
+                    onLevelLocation = "дальняя слева";
+                    break;
                 case 3:
-                    return "дальняя справа";
+                    onLevelLocation = "дальняя справа";
+                    break;
                 case 0:
-                    return "ближняя справа";
+                    onLevelLocation = "ближняя справа";
+                    break;
                 default:
-                    return "невозможно определить расположение";
+                    onLevelLocation = "невозможно определить расположение";
+                    break;
             }
         }
     }
