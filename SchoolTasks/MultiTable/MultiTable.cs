@@ -26,12 +26,14 @@ namespace MultiTable
 
         private static void PrintHead(int width, int cellWidth)
         {
-            Console.Write("{0, " + cellWidth + "}", "");
+            string format = "{0, " + cellWidth + "}";
+
+            Console.Write(format, "");
             Console.Write("|");
 
             for (int i = 1; i <= width; i++)
             {
-                Console.Write("{0, " + cellWidth + "}", i);
+                Console.Write(format, i);
             }
 
             Console.WriteLine();
@@ -53,14 +55,16 @@ namespace MultiTable
 
         private static void PrintBody(int width, int height, int cellWidth)
         {
+            string format = "{0, " + cellWidth + "}";
+
             for (int i = 1; i <= height; i++)
             {
-                Console.Write("{0, " + cellWidth + "}", i);
+                Console.Write(format, i);
                 Console.Write("|");
 
                 for (int j = 1; j <= width; j++)
                 {
-                    Console.Write("{0, " + cellWidth + "}", i * j);
+                    Console.Write(format, i * j);
                 }
 
                 Console.WriteLine();
