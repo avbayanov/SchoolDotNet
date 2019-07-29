@@ -5,7 +5,7 @@ namespace Flats
     class Flats
     {
         static void Main(string[] args)
-        { 
+        {
             const int flatsOnLevel = 4;
 
             int levels;
@@ -32,7 +32,8 @@ namespace Flats
             int foundEntrance = GetFoundEntrance(desiredFlat, flatsInEntrance);
 
             Console.WriteLine("Квартира расположена в {0} подъезде, на {1} этаже, {2}",
-                foundEntrance, GetFoundLevel(desiredFlat, flatsInEntrance, flatsOnLevel, foundEntrance), GetOnLevelLocation(desiredFlat, flatsOnLevel));
+                foundEntrance, GetFoundLevel(desiredFlat, flatsInEntrance, flatsOnLevel, foundEntrance),
+                GetOnLevelLocation(desiredFlat, flatsOnLevel));
         }
 
         private static bool IsFlatExists(int desiredFlat, int flatsInEntrance, int entrances)
@@ -47,7 +48,7 @@ namespace Flats
 
         private static int GetFoundLevel(int desiredFlat, int flatsInEntrance, int flatsOnLevel, int foundEntrance)
         {
-             return (int) Math.Ceiling((desiredFlat - flatsInEntrance * (foundEntrance - 1)) / (double) flatsOnLevel);
+            return (int) Math.Ceiling((desiredFlat - flatsInEntrance * (foundEntrance - 1)) / (double) flatsOnLevel);
         }
 
         private static String GetOnLevelLocation(int desiredFlat, int flatsOnLevel)
