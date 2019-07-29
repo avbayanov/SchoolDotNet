@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Range", "Range\Range.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTableArray", "MultiTableArray\MultiTableArray.csproj", "{7F88E077-4CF8-4A42-8804-2BCE99241011}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxBlur", "BoxBlur\BoxBlur.csproj", "{8AFE1635-6139-421B-95B3-9F0906A7DF82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7F88E077-4CF8-4A42-8804-2BCE99241011}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F88E077-4CF8-4A42-8804-2BCE99241011}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F88E077-4CF8-4A42-8804-2BCE99241011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
