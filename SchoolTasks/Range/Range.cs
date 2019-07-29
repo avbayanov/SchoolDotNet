@@ -4,31 +4,32 @@ namespace Range
 {
     class Range
     {
-        private double from;
-        private double to;
+        private double From { get; set; }
+
+        private double To { get; set; }
 
         public Range(int from, int to)
         {
             if (from < to)
             {
-                this.from = from;
-                this.to = to;
+                this.From = from;
+                this.To = to;
             }
             else
             {
-                this.from = to;
-                this.to = from;
+                this.From = to;
+                this.To = from;
             }
         }
 
         public double GetLength()
         {
-            return to - from;
+            return To - From;
         }
 
         public bool IsInside(double input)
         {
-            return input >= from && input <= to;
+            return input >= From && input <= To;
         }
     }
 }
