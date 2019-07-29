@@ -37,12 +37,7 @@ namespace Flats
 
         private static bool IsFlatExists(int desiredFlat, int flatsInEntrance, int entrances)
         {
-            if (desiredFlat < 0 || desiredFlat > flatsInEntrance * entrances)
-            {
-                return false;
-            }
-
-            return true;
+            return !(desiredFlat < 0 || desiredFlat > flatsInEntrance * entrances);
         }
 
         private static int GetFoundEntrance(int desiredFlat, int flatsInEntrance)
