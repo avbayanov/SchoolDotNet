@@ -17,12 +17,12 @@ namespace Palindrome
         {
             for (int leftIndex = 0, rightIndex = input.Length - 1; leftIndex <= rightIndex; leftIndex++, rightIndex--)
             {
-                while (leftIndex < input.Length && char.IsWhiteSpace(input[leftIndex]))
+                while (leftIndex < input.Length && !char.IsLetter(input[leftIndex]))
                 {
                     leftIndex++;
                 }
 
-                while (rightIndex >= 0 && char.IsWhiteSpace(input[rightIndex]))
+                while (rightIndex >= 0 && !char.IsLetter(input[rightIndex]))
                 {
                     rightIndex--;
                 }
