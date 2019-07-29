@@ -4,33 +4,14 @@ namespace Flats
 {
     class Flats
     {
-        private const int flatsOnLevel = 4;
-
-        private static int levels;
-        private static int entrances;
-        private static int flat;
-
-        private static int flatsInEntrance;
-        private static int foundEntrance;
-        private static int foundLevel;
-        private static string onLevelLocation;
-
         static void Main(string[] args)
-        {
-            GetUserData();
+        { 
+            const int flatsOnLevel = 4;
 
-            if (!CalculateLocation())
-            {
-                Console.WriteLine("Такой квартиры не существует");
-                return;
-            }
+            int levels;
+            int entrances;
+            int desiredFlat;
 
-            Console.WriteLine("Квартира расположена в {0} подъезде, на {1} этаже, {2}",
-                foundEntrance, foundLevel, onLevelLocation);
-        }
-
-        private static void GetUserData()
-        {
             Console.Write("Введите число этажей: ");
             levels = Convert.ToInt32(Console.ReadLine());
 
@@ -38,55 +19,62 @@ namespace Flats
             entrances = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Введите номер квартиры: ");
-            flat = Convert.ToInt32(Console.ReadLine());
+            desiredFlat = Convert.ToInt32(Console.ReadLine());
+
+            int flatsInEntrance = flatsOnLevel * levels;
+
+            if (!IsFlatExists(desiredFlat, flatsInEntrance, entrances))
+            {
+                Console.WriteLine("Такой квартиры не существует");
+                return;
+            }
+
+            int foundEntrance = GetFoundEntrance(desiredFlat, flatsInEntrance);
+
+            Console.WriteLine("Квартира расположена в {0} подъезде, на {1} этаже, {2}",
+                foundEntrance, GetFoundLevel(desiredFlat, flatsInEntrance, flatsOnLevel, foundEntrance), GetOnLevelLocation(desiredFlat, flatsOnLevel));
         }
 
-        private static bool CalculateLocation()
+        private static bool IsFlatExists(int desiredFlat, int flatsInEntrance, int entrances)
         {
-            flatsInEntrance = flatsOnLevel * levels;
-
-            if (flat < 0 || flat > flatsInEntrance * entrances)
+            if (desiredFlat < 0 || desiredFlat > flatsInEntrance * entrances)
             {
                 return false;
             }
 
-            CalculateFoundEntrance();
-            CalculateFoundLevel();
-            CalculateOnLevelLocation();
-
             return true;
         }
 
-        private static void CalculateFoundEntrance()
+        private static int GetFoundEntrance(int desiredFlat, int flatsInEntrance)
         {
-            foundEntrance = (int) Math.Ceiling((double) flat / flatsInEntrance);
+            return (int) Math.Ceiling((double) desiredFlat / flatsInEntrance);
         }
 
-        private static void CalculateFoundLevel()
+        private static int GetFoundLevel(int desiredFlat, int flatsInEntrance, int flatsOnLevel, int foundEntrance)
         {
-            foundLevel = (int) Math.Ceiling((flat - flatsInEntrance * (foundEntrance - 1)) / (double) flatsOnLevel);
+             return (int) Math.Ceiling((desiredFlat - flatsInEntrance * (foundEntrance - 1)) / (double) flatsOnLevel);
         }
 
-        private static void CalculateOnLevelLocation()
+        private static String GetOnLevelLocation(int desiredFlat, int flatsOnLevel)
         {
-            int positionOnLevel = flat % flatsOnLevel;
+            int positionOnLevel = desiredFlat % flatsOnLevel;
 
             switch (positionOnLevel)
             {
                 case 1:
-                    onLevelLocation = "ближняя слева";
+                    return "ближняя слева";
                     break;
                 case 2:
-                    onLevelLocation = "дальняя слева";
+                    return "дальняя слева";
                     break;
                 case 3:
-                    onLevelLocation = "дальняя справа";
+                    return "дальняя справа";
                     break;
                 case 0:
-                    onLevelLocation = "ближняя справа";
+                    return "ближняя справа";
                     break;
                 default:
-                    onLevelLocation = "невозможно определить расположение";
+                    return "невозможно определить расположение";
                     break;
             }
         }
