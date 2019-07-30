@@ -55,19 +55,14 @@ namespace Flats
             {
                 case 1:
                     return "ближняя слева";
-                    break;
                 case 2:
                     return "дальняя слева";
-                    break;
                 case 3:
                     return "дальняя справа";
-                    break;
                 case 0:
                     return "ближняя справа";
-                    break;
                 default:
                     return "невозможно определить расположение";
-                    break;
             }
         }
     }
