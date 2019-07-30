@@ -47,7 +47,7 @@ namespace Flats
             return (int) Math.Ceiling((desiredFlat - flatsInEntrance * (foundEntrance - 1)) / (double) flatsOnLevel);
         }
 
-        private static String GetOnLevelLocation(int desiredFlat, int flatsOnLevel)
+        private static string GetOnLevelLocation(int desiredFlat, int flatsOnLevel)
         {
             int positionOnLevel = desiredFlat % flatsOnLevel;
 
