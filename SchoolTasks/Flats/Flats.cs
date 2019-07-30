@@ -9,17 +9,17 @@ namespace Flats
             const int flatsOnLevel = 4;
 
             Console.Write("Введите число этажей: ");
-            int levels = Convert.ToInt32(Console.ReadLine());
+            int levelsCount = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Введите число подъездов: ");
-            int entrances = Convert.ToInt32(Console.ReadLine());
+            int entrancesCount = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Введите номер квартиры: ");
             int desiredFlat = Convert.ToInt32(Console.ReadLine());
 
-            int flatsInEntrance = flatsOnLevel * levels;
+            int flatsInEntrance = flatsOnLevel * levelsCount;
 
-            if (!IsFlatExists(desiredFlat, flatsInEntrance, entrances))
+            if (!IsFlatExists(desiredFlat, flatsInEntrance, entrancesCount))
             {
                 Console.WriteLine("Такой квартиры не существует");
                 return;
