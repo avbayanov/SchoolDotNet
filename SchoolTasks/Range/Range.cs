@@ -4,9 +4,9 @@ namespace Range
 {
     class Range
     {
-        private double From { get; set; }
+        public double From { get; set; }
 
-        private double To { get; set; }
+        public double To { get; set; }
 
         public Range(int from, int to)
         {
