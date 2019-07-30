@@ -41,13 +41,13 @@ namespace MultiTableArray
             return cellWidth;
         }
 
-        private static int[,] GetMultiTableArray(int width, int height)
+        private static int[,] GetMultiTableArray(int height, int width)
         {
-            int[,] result = new int[width, height];
+            int[,] result = new int[height, width];
 
-            for (int i = 1; i <= width; i++)
+            for (int i = 1; i <= height; i++)
             {
-                for (int j = 1; j <= height; j++)
+                for (int j = 1; j <= width; j++)
                 {
                     result[i - 1, j - 1] = i * j;
                 }
