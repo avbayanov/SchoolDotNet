@@ -8,18 +8,14 @@ namespace Flats
         {
             const int flatsOnLevel = 4;
 
-            int levels;
-            int entrances;
-            int desiredFlat;
-
             Console.Write("Введите число этажей: ");
-            levels = Convert.ToInt32(Console.ReadLine());
+            int levels = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Введите число подъездов: ");
-            entrances = Convert.ToInt32(Console.ReadLine());
+            int entrances = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Введите номер квартиры: ");
-            desiredFlat = Convert.ToInt32(Console.ReadLine());
+            int desiredFlat = Convert.ToInt32(Console.ReadLine());
 
             int flatsInEntrance = flatsOnLevel * levels;
 
