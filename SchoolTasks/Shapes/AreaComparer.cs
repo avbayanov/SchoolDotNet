@@ -7,7 +7,7 @@ namespace Shapes
     {
         public int Compare(IShape x, IShape y)
         {
-            return  x.GetArea().CompareTo(y.GetArea());
+            return x.GetArea().CompareTo(y.GetArea());
         }
     }
 }

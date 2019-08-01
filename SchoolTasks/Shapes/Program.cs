@@ -25,7 +25,7 @@ namespace Shapes
             Console.WriteLine("Фигура с максимальной площадью: " + shapes[0]);
 
             Array.Sort(shapes, new PerimeterComparer());
-            Console.WriteLine("Фигура со вторым по разамеру периметром: " + shapes[1]);
+            Console.WriteLine("Фигура со вторым по размеру периметром: " + shapes[1]);
         }
     }
 }

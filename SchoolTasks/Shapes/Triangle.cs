@@ -71,8 +71,8 @@ namespace Shapes
 
             Triangle triangle = (Triangle) obj;
 
-            return x1.Equals(triangle.x1) && y1.Equals(triangle.y1) 
-                   && x2.Equals(triangle.x2) && y2.Equals(triangle.y2) 
+            return x1.Equals(triangle.x1) && y1.Equals(triangle.y1)
+                   && x2.Equals(triangle.x2) && y2.Equals(triangle.y2)
                    && x3.Equals(triangle.x3) && y3.Equals(triangle.y3);
         }
 
