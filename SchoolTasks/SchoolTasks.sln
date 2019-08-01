@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTableArray", "MultiTab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxBlur", "BoxBlur\BoxBlur.csproj", "{8AFE1635-6139-421B-95B3-9F0906A7DF82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shapes", "Shapes\Shapes.csproj", "{3CF8741E-39E5-4BA1-844D-2CDD18EEA2F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AFE1635-6139-421B-95B3-9F0906A7DF82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CF8741E-39E5-4BA1-844D-2CDD18EEA2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF8741E-39E5-4BA1-844D-2CDD18EEA2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CF8741E-39E5-4BA1-844D-2CDD18EEA2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF8741E-39E5-4BA1-844D-2CDD18EEA2F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
