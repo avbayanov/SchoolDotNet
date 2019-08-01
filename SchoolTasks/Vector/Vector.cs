@@ -190,6 +190,7 @@ namespace Vector
             {
                 throw new NullReferenceException("Vector1 must be not null");
             }
+
             if (ReferenceEquals(vector2, null))
             {
                 throw new NullReferenceException("Vector2 must be not null");
@@ -207,6 +208,7 @@ namespace Vector
             {
                 throw new NullReferenceException("Vector1 must be not null");
             }
+
             if (ReferenceEquals(vector2, null))
             {
                 throw new NullReferenceException("Vector2 must be not null");
@@ -224,6 +226,7 @@ namespace Vector
             {
                 throw new NullReferenceException("Vector1 must be not null");
             }
+
             if (ReferenceEquals(vector2, null))
             {
                 throw new NullReferenceException("Vector2 must be not null");
