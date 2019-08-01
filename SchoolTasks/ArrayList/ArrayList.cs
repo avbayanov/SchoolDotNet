@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ArrayList
 {
-    class ArrayList<T> : IList<T>
-    {
-
-    }
+//    class ArrayList<T> : IList<T>
+//    {
+//
+//    }
 }
