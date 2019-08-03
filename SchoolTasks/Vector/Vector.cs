@@ -76,7 +76,7 @@ namespace Vector
 
             for (int i = 0; i < components.Length; i++)
             {
-                if (!components[i].Equals(vector.components[i]))
+                if (components[i] != vector.components[i])
                 {
                     return false;
                 }
