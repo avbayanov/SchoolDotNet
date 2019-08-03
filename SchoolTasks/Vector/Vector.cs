@@ -48,7 +48,7 @@ namespace Vector
 
             this.components = new double[size];
 
-            Array.Copy(components, 0, this.components, 0, size);
+            Array.Copy(components, 0, this.components, 0, components.Length);
         }
 
         public override string ToString()
