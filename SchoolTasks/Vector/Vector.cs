@@ -164,28 +164,6 @@ namespace Vector
             return Math.Sqrt(squaredComponentsSum);
         }
 
-        // Реализация "Получение и установка компоненты вектора по индексу" через методы
-        public double GetComponent(int index)
-        {
-            if (index < 0 || index >= components.Length)
-            {
-                throw new IndexOutOfRangeException("Index must be >= 0 and < Vector.GetSize()");
-            }
-
-            return components[index];
-        }
-
-        public void SetComponent(int index, double component)
-        {
-            if (index < 0 || index >= components.Length)
-            {
-                throw new IndexOutOfRangeException("Index must be >= 0 and < Vector.GetSize()");
-            }
-
-            components[index] = component;
-        }
-
-        // Реализация "Получение и установка компоненты вектора по индексу" через свойства
         public double this[int index]
         {
             get
