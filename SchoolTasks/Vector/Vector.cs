@@ -41,7 +41,7 @@ namespace Vector
 
         public Vector(int size, double[] components)
         {
-            if (size <= 0 || components.Length == 0)
+            if (size <= 0)
             {
                 throw new ArgumentException("Vector size must be > 0");
             }
