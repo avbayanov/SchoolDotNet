@@ -1,39 +1,39 @@
 ﻿using System;
 
-namespace Shapes
+namespace Shapes.Shapes
 {
-    class Square : IShape
+    public class Circle : IShape
     {
-        private double side;
+        private double radius;
 
-        public Square(double side)
+        public Circle(double radius)
         {
-            this.side = side;
+            this.radius = radius;
         }
 
         public double GetWidth()
         {
-            return side;
+            return radius * 2;
         }
 
         public double GetHeight()
         {
-            return side;
+            return radius * 2;
         }
 
         public double GetArea()
         {
-            return Math.Pow(side, 2);
+            return Math.PI * Math.Pow(radius, 2);
         }
 
         public double GetPerimeter()
         {
-            return side * 4;
+            return 2 * Math.PI * radius;
         }
 
         public override string ToString()
         {
-            return "{ Square side: " + side + " }";
+            return "{ Circle radius: " + radius + " }";
         }
 
         public override bool Equals(object obj)
@@ -48,16 +48,16 @@ namespace Shapes
                 return false;
             }
 
-            Square square = (Square) obj;
+            Circle circle = (Circle) obj;
 
-            return side == square.side;
+            return radius == circle.radius;
         }
 
         public override int GetHashCode()
         {
-            int prime = 5;
+            int prime = 11;
 
-            return prime * side.GetHashCode();
+            return prime * radius.GetHashCode();
         }
     }
 }
