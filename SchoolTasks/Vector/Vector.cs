@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Vector
 {
@@ -52,7 +53,18 @@ namespace Vector
 
         public override string ToString()
         {
-            return "{ " + String.Join(", ", components) + " }";
+            StringBuilder stringBuilder = new StringBuilder("{ ");
+
+            foreach (double component in components)
+            {
+                stringBuilder.Append(component);
+                stringBuilder.Append(", ");
+            }
+
+            stringBuilder.Remove(stringBuilder.Length - 2, 2);
+            stringBuilder.Append(" }");
+
+            return stringBuilder.ToString();
         }
 
         public override bool Equals(object obj)
