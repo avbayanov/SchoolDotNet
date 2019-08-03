@@ -32,13 +32,20 @@ namespace ArrayListHome
         {
             List<string> lines = new List<string>();
 
-            using (StreamReader reader = new StreamReader(path))
+            try
             {
-                string currentLine;
-                while ((currentLine = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader(path))
                 {
-                    lines.Add(currentLine);
+                    string currentLine;
+                    while ((currentLine = reader.ReadLine()) != null)
+                    {
+                        lines.Add(currentLine);
+                    }
                 }
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine("Error: " + exception.Message);
             }
 
             return lines;
