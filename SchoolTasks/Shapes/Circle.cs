@@ -50,7 +50,7 @@ namespace Shapes
 
             Circle circle = (Circle) obj;
 
-            return radius.Equals(circle.radius);
+            return radius == circle.radius;
         }
 
         public override int GetHashCode()

@@ -50,7 +50,7 @@ namespace Shapes
 
             Square square = (Square) obj;
 
-            return side.Equals(square.side);
+            return side == square.side;
         }
 
         public override int GetHashCode()

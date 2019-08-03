@@ -56,7 +56,7 @@ namespace Shapes
 
             Rectangle rectangle = (Rectangle) obj;
 
-            return width.Equals(rectangle.width) && height.Equals(rectangle.height);
+            return width == rectangle.width && height == rectangle.height;
         }
 
         public override int GetHashCode()
