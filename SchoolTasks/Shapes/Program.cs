@@ -22,10 +22,10 @@ namespace Shapes
             IShape[] shapes = {square1, square2, rectangle1, rectangle2, triangle1, triangle2, circle1, circle2};
 
             Array.Sort(shapes, new AreaComparer());
-            Console.WriteLine("Фигура с максимальной площадью: " + shapes[0]);
+            Console.WriteLine("Фигура с максимальной площадью: " + shapes[shapes.Length - 1]);
 
             Array.Sort(shapes, new PerimeterComparer());
-            Console.WriteLine("Фигура со вторым по размеру периметром: " + shapes[1]);
+            Console.WriteLine("Фигура со вторым по размеру периметром: " + shapes[shapes.Length - 2]);
         }
     }
 }
