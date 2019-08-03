@@ -18,14 +18,14 @@ namespace ArrayListHome
             }
 
             List<int> listIntForEvenRemoving = new List<int> {1, 2, 3, 4, 5};
-            Console.WriteLine("List with even integers: " + String.Join(", ", listIntForEvenRemoving));
+            Console.WriteLine("List with even integers: " + string.Join(", ", listIntForEvenRemoving));
 
             RemoveEvenIntegers(ref listIntForEvenRemoving);
-            Console.WriteLine("List without even integers: " + String.Join(", ", listIntForEvenRemoving));
+            Console.WriteLine("List without even integers: " + string.Join(", ", listIntForEvenRemoving));
 
             List<int> listIntForDuplicatesRemoving = new List<int> { 1, 1, 2, 2, 5 };
-            Console.WriteLine("List with duplicates integers: " + String.Join(", ", listIntForDuplicatesRemoving));
-            Console.WriteLine("List without duplicates integers: " + String.Join(", ", GetWithoutDuplicates(listIntForDuplicatesRemoving)));
+            Console.WriteLine("List with duplicates integers: " + string.Join(", ", listIntForDuplicatesRemoving));
+            Console.WriteLine("List without duplicates integers: " + string.Join(", ", GetWithoutDuplicates(listIntForDuplicatesRemoving)));
         }
 
         private static List<string> GetAllLinesFromFile(string path)
