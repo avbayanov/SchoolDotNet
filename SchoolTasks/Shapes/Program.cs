@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Shapes.Shapes;
 
 namespace Shapes
