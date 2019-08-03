@@ -7,8 +7,8 @@ namespace Vector
         static void Main(string[] args)
         {
             Vector vector1 = new Vector(1);
-            vector1.SetComponent(0, 1);
-            Console.WriteLine("vector1.GetComponent(0) = " + vector1.GetComponent(0));
+            vector1[0] = 1;
+            Console.WriteLine("vector1[0] = " + vector1[0]);
 
             double[] doubles = {1, 2, 3, 4, 5};
             Vector vector2 = new Vector(doubles);
