@@ -19,6 +19,11 @@ namespace ArrayList
 
         public ArrayList(int capacity)
         {
+            if (capacity < 0)
+            {
+                throw new ArgumentException("capacity must be >= 0", nameof(capacity));
+            }
+
             array = new T[capacity];
         }
 
