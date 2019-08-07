@@ -126,7 +126,7 @@ namespace HashTable
         private class HashTableEnumerator<T> : IEnumerator<T>
         {
             private readonly HashTable<T> hashTable;
-            private int modCountEnumerator;
+            private int enumeratorModCount;
 
             private IEnumerator<T> currentListEnumerator;
             private int currentListIndex = -1;
@@ -137,7 +137,7 @@ namespace HashTable
             {
                 this.hashTable = hashTable;
 
-                modCountEnumerator = this.hashTable.modCount;
+                enumeratorModCount = this.hashTable.modCount;
             }
 
             private bool GetNextListEnumerator()
@@ -166,6 +166,11 @@ namespace HashTable
 
             public bool MoveNext()
             {
+                if (enumeratorModCount != hashTable.modCount)
+                {
+                    throw new InvalidOperationException("Collection was modified");
+                }
+
                 if (currentListEnumerator == null)
                 {
                     if (!GetNextListEnumerator())
