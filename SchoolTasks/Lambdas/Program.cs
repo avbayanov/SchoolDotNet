@@ -22,7 +22,7 @@ namespace Lambdas
                 .Select(person => person.Name)
                 .Distinct()
                 .ToList();
-            Console.WriteLine("Имена:" + string.Join(", ", uniqueNames) + ".");
+            Console.WriteLine("Имена: " + string.Join(", ", uniqueNames) + ".");
 
             double averageAgePersonsUnder18 = persons
                 .Where(person => person.Age < 18)
