@@ -20,7 +20,7 @@ namespace Lambdas
                 .Select(person => person.Name)
                 .Distinct()
                 .ToList();
-            Console.WriteLine("Имена:" + String.Join(", ", uniqueNames) + ".");
+            Console.WriteLine("Имена:" + string.Join(", ", uniqueNames) + ".");
 
             double averageAgePersonsUnder18 = persons
                 .Select(person => person.Age)
@@ -32,14 +32,14 @@ namespace Lambdas
                 .ToDictionary(name => name.Key, groupedPersons => groupedPersons
                     .Select(personInGroup => personInGroup.Age)
                     .Average());
-            Console.WriteLine("Ключи - имена, а значения - средний возраст: " + String.Join(", ", namesWithAverageAge));
+            Console.WriteLine("Ключи - имена, а значения - средний возраст: " + string.Join(", ", namesWithAverageAge));
 
             List<string> personsFrom20To45Names = persons
                 .Where(person => person.Age >= 20 && person.Age <= 45)
                 .OrderByDescending(filteredPerson => filteredPerson.Age)
                 .Select(orderedPerson => orderedPerson.Name)
                 .ToList();
-            Console.WriteLine("Имена людей, возраст которых от 20 до 45, в порядке убывания возраста: " + String.Join(", ", personsFrom20To45Names));
+            Console.WriteLine("Имена людей, возраст которых от 20 до 45, в порядке убывания возраста: " + string.Join(", ", personsFrom20To45Names));
 
             Console.WriteLine("Введите требуемое количество корней: ");
             int squareRootsCount = Convert.ToInt32(Console.ReadLine());
@@ -66,7 +66,7 @@ namespace Lambdas
                 .Take(count)
                 .ToList();
 
-            Console.WriteLine(String.Join(", ", squareRoots));
+            Console.WriteLine(string.Join(", ", squareRoots));
         }
 
         public static IEnumerable<double> GetFibonacci()
@@ -89,7 +89,7 @@ namespace Lambdas
                 .Take(count)
                 .ToList();
 
-            Console.WriteLine(String.Join(", ", fibo));
+            Console.WriteLine(string.Join(", ", fibo));
         }
     }
 }
