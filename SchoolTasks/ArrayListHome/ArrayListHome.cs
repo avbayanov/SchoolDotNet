@@ -20,7 +20,7 @@ namespace ArrayListHome
             List<int> listIntForEvenRemoving = new List<int> {1, 2, 3, 4, 5};
             Console.WriteLine("List with even integers: " + string.Join(", ", listIntForEvenRemoving));
 
-            RemoveEvenIntegers(ref listIntForEvenRemoving);
+            RemoveEvenIntegers(listIntForEvenRemoving);
             Console.WriteLine("List without even integers: " + string.Join(", ", listIntForEvenRemoving));
 
             List<int> listIntForDuplicatesRemoving = new List<int> { 1, 1, 2, 2, 5 };
@@ -51,7 +51,7 @@ namespace ArrayListHome
             return lines;
         }
 
-        private static void RemoveEvenIntegers(ref List<int> intList)
+        private static void RemoveEvenIntegers(List<int> intList)
         {
             for (int i = 0; i < intList.Count; i++)
             {
