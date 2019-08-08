@@ -25,15 +25,13 @@ namespace Lambdas
             Console.WriteLine("Имена:" + string.Join(", ", uniqueNames) + ".");
 
             double averageAgePersonsUnder18 = persons
-                .Select(person => person.Age)
-                .Where(age => age < 18)
-                .Average();
+                .Where(person => person.Age < 18)
+                .Average(filteredPerson => filteredPerson.Age);
             Console.WriteLine("Средний возраст людей младше 18: " + averageAgePersonsUnder18);
 
             Dictionary<string, double> namesWithAverageAge = persons.GroupBy(person => person.Name)
                 .ToDictionary(name => name.Key, groupedPersons => groupedPersons
-                    .Select(personInGroup => personInGroup.Age)
-                    .Average());
+                    .Average(personInGroup => personInGroup.Age));
             Console.WriteLine("Ключи - имена, а значения - средний возраст: " + string.Join(", ", namesWithAverageAge));
 
             List<string> personsFrom20To45Names = persons
