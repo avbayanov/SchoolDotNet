@@ -120,10 +120,10 @@ namespace HashTable
                 throw new ArgumentException("Not enough space in array: (Count + arrayIndex) must be <= array.Length");
             }
 
-            int i = 0;
+            int i = arrayIndex;
             foreach (T item in this)
             {
-                array[arrayIndex + i] = item;
+                array[i] = item;
                 i++;
             }
         }
