@@ -98,7 +98,7 @@ namespace ArrayList
         {
             for (int i = 0; i < Count; i++)
             {
-                if (array[i].Equals(item))
+                if (EqualityComparer<T>.Default.Equals(array[i], item))
                 {
                     return i;
                 }
