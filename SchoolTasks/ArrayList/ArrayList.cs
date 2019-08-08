@@ -150,7 +150,7 @@ namespace ArrayList
                 return false;
             }
 
-            RemoveAt(IndexOf(item));
+            RemoveAt(index);
 
             return true;
         }
