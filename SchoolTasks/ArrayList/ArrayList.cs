@@ -79,6 +79,11 @@ namespace ArrayList
 
         public void TrimToCount()
         {
+            if (Count == array.Length)
+            {
+                return;
+            }
+
             ResizeArray(Count);
         }
 
