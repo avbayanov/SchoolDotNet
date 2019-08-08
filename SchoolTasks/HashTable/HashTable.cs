@@ -39,7 +39,7 @@ namespace HashTable
 
         public void Clear()
         {
-            for (int i = 0; i < storage.Length; i++)
+            for (var i = 0; i < storage.Length; i++)
             {
                 storage[i] = null;
             }
@@ -51,7 +51,7 @@ namespace HashTable
 
         public bool Contains(T item)
         {
-            int index = GetIndex(item);
+            var index = GetIndex(item);
 
             if (storage[index] == null)
             {
@@ -63,7 +63,7 @@ namespace HashTable
 
         public void Add(T item)
         {
-            int index = GetIndex(item);
+            var index = GetIndex(item);
 
             if (storage[index] == null)
             {
@@ -79,7 +79,7 @@ namespace HashTable
 
         public bool Remove(T item)
         {
-            int index = GetIndex(item);
+            var index = GetIndex(item);
 
             if (storage[index] == null)
             {
@@ -120,8 +120,8 @@ namespace HashTable
                 throw new ArgumentException("Not enough space in array: (Count + arrayIndex) must be <= array.Length");
             }
 
-            int i = arrayIndex;
-            foreach (T item in this)
+            var i = arrayIndex;
+            foreach (var item in this)
             {
                 array[i] = item;
                 i++;

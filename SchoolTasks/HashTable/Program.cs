@@ -6,7 +6,7 @@ namespace HashTable
     {
         static void Main(string[] args)
         {
-            HashTable<int> integers = new HashTable<int>(55);
+            var integers = new HashTable<int>(55);
             integers.Add(0);
             integers.Add(30);
             integers.Add(55);
@@ -22,7 +22,7 @@ namespace HashTable
             Console.WriteLine("integers: " + String.Join(", ", integers));
 
             Console.WriteLine("copying integers to array and shifting elements 1 position right");
-            int[] array = new int[integers.Count + 1];
+            var array = new int[integers.Count + 1];
             integers.CopyTo(array, 1);
             Console.WriteLine("array: " + String.Join(", ", array));
 
