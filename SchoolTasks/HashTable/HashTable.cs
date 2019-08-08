@@ -129,96 +129,49 @@ namespace HashTable
             }
         }
 
-        private class HashTableEnumerator<T> : IEnumerator<T>
+        private int? GetNextListIndex(int index)
         {
-            private readonly HashTable<T> hashTable;
-            private int enumeratorModCount;
+            int i = index;
 
-            private IEnumerator<T> currentListEnumerator;
-            private int currentListIndex = -1;
-
-            public T Current { get; private set; }
-
-            public HashTableEnumerator(HashTable<T> hashTable)
+            if (i == storage.Length)
             {
-                this.hashTable = hashTable;
-
-                enumeratorModCount = this.hashTable.modCount;
+                return null;
             }
 
-            private bool GetNextListEnumerator()
+            while (storage[i] == null)
             {
-                currentListIndex++;
+                i++;
 
-                if (currentListIndex == hashTable.storage.Length)
+                if (i == storage.Length)
                 {
-                    return false;
+                    return null;
                 }
-
-                while (hashTable.storage[currentListIndex] == null)
-                {
-                    currentListIndex++;
-
-                    if (currentListIndex == hashTable.storage.Length)
-                    {
-                        return false;
-                    }
-                }
-
-                currentListEnumerator = hashTable.storage[currentListIndex].GetEnumerator();
-
-                return true;
             }
 
-            public bool MoveNext()
-            {
-                if (enumeratorModCount != hashTable.modCount)
-                {
-                    throw new InvalidOperationException("Collection was modified");
-                }
-
-                if (currentListEnumerator == null)
-                {
-                    if (!GetNextListEnumerator())
-                    {
-                        return false;
-                    }
-                }
-
-                if (currentListEnumerator.MoveNext())
-                {
-                    Current = currentListEnumerator.Current;
-
-                    return true;
-                }
-
-                if (!GetNextListEnumerator())
-                {
-                    return false;
-                }
-
-                currentListEnumerator.MoveNext();
-                Current = currentListEnumerator.Current;
-
-                return true;
-            }
-
-            public void Reset()
-            {
-                currentListEnumerator = null;
-                currentListIndex = -1;
-            }
-
-            public void Dispose()
-            {
-            }
-
-            object IEnumerator.Current => Current;
+            return i;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new HashTableEnumerator<T>(this);
+            int enumeratorModCount = modCount;
+
+            int? currentListIndex = GetNextListIndex(0);
+
+            while (currentListIndex != null)
+            {
+                LinkedList<T> currentList = storage[currentListIndex.Value];
+
+                foreach (T item in currentList)
+                {
+                    if (enumeratorModCount != modCount)
+                    {
+                        throw new InvalidOperationException("Collection was modified");
+                    }
+                    yield return item;
+                }
+
+                currentListIndex = GetNextListIndex(currentListIndex.Value + 1);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
