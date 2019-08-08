@@ -10,11 +10,13 @@ namespace Lambdas
     {
         static void Main(string[] args)
         {
-            List<Person> persons = new List<Person>();
-            persons.Add(new Person("Иван", 15));
-            persons.Add(new Person("Сергей", 16));
-            persons.Add(new Person("Иван", 28));
-            persons.Add(new Person("Петр", 35));
+            List<Person> persons = new List<Person>
+            {
+                new Person("Иван", 15),
+                new Person("Сергей", 16),
+                new Person("Иван", 28),
+                new Person("Петр", 35)
+            };
 
             List<string> uniqueNames = persons
                 .Select(person => person.Name)
