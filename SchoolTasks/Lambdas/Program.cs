@@ -17,7 +17,7 @@ namespace Lambdas
                 new Person("Иван", 28),
                 new Person("Петр", 35)
             };
-
+            
             List<string> uniqueNames = persons
                 .Select(person => person.Name)
                 .Distinct()
@@ -78,7 +78,7 @@ namespace Lambdas
 
             while (true)
             {
-                yield return second;
+                yield return first;
                 int current = first + second;
                 first = second;
                 second = current;
