@@ -29,6 +29,11 @@ namespace HashTable
 
         private int GetIndex(T item)
         {
+            if (item == null)
+            {
+                return 0;
+            }
+
             return Math.Abs(item.GetHashCode() % storage.Length);
         }
 
