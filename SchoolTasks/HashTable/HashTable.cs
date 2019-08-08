@@ -86,21 +86,22 @@ namespace HashTable
                 return false;
             }
 
-            if (storage[index].Remove(item))
+            if (!storage[index].Remove(item))
             {
-                Count--;
-
-                modCount++;
-
-                if (storage[index].Count == 0)
-                {
-                    storage[index] = null;
-                }
-
-                return true;
+                return false;
             }
 
-            return false;
+            Count--;
+
+            modCount++;
+
+            if (storage[index].Count == 0)
+            {
+                storage[index] = null;
+            }
+
+            return true;
+
         }
 
         public void CopyTo(T[] array, int arrayIndex)
