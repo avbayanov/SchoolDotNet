@@ -125,7 +125,7 @@ namespace ArrayList
 
         public void Insert(int index, T item)
         {
-            if (index < 0 || index >= Count)
+            if (index < 0 || index > Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be >= 0 and < ArrayList.Count");
             }
