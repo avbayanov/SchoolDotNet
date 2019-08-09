@@ -129,48 +129,26 @@ namespace HashTable
             }
         }
 
-        private int? GetNextListIndex(int index)
-        {
-            int i = index;
-
-            if (i == storage.Length)
-            {
-                return null;
-            }
-
-            while (storage[i] == null)
-            {
-                i++;
-
-                if (i == storage.Length)
-                {
-                    return null;
-                }
-            }
-
-            return i;
-        }
-
         public IEnumerator<T> GetEnumerator()
         {
             int enumeratorModCount = modCount;
 
-            int? currentListIndex = GetNextListIndex(0);
-
-            while (currentListIndex != null)
+            foreach (LinkedList<T> list in storage)
             {
-                LinkedList<T> currentList = storage[currentListIndex.Value];
+                if (list == null)
+                {
+                    continue;
+                }
 
-                foreach (T item in currentList)
+                foreach (T item in list)
                 {
                     if (enumeratorModCount != modCount)
                     {
                         throw new InvalidOperationException("Collection was modified");
                     }
+
                     yield return item;
                 }
-
-                currentListIndex = GetNextListIndex(currentListIndex.Value + 1);
             }
         }
 
