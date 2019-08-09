@@ -33,7 +33,7 @@ namespace ArrayList
             {
                 if (index < 0 || index >= Count)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be >= 0 and < ArrayList.Count");
+                    throw new IndexOutOfRangeException("Index must be >= 0 and < ArrayList.Count");
                 }
 
                 return array[index];
@@ -43,7 +43,7 @@ namespace ArrayList
             {
                 if (index < 0 || index >= Count)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be >= 0 and < ArrayList.Count");
+                    throw new IndexOutOfRangeException("Index must be >= 0 and < ArrayList.Count");
                 }
 
                 array[index] = value;
@@ -127,7 +127,7 @@ namespace ArrayList
         {
             if (index < 0 || index > Count)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), "Index must be >= 0 and < ArrayList.Count");
+                throw new IndexOutOfRangeException("Index must be >= 0 and < ArrayList.Count");
             }
 
             CheckForFullAndDoubleCapacity();
@@ -159,7 +159,7 @@ namespace ArrayList
         {
             if (index < 0 || index >= Count)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), "Index must be >= 0 and < ArrayList.Count");
+                throw new IndexOutOfRangeException("Index must be >= 0 and < ArrayList.Count");
             }
 
             Array.Copy(array, index + 1, array, index, Count - index - 1);
@@ -178,7 +178,7 @@ namespace ArrayList
 
             if (arrayIndex < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), "arrayIndex must be >= 0");
+                throw new IndexOutOfRangeException("arrayIndex must be >= 0");
             }
 
             if (Count + arrayIndex > array.Length)
