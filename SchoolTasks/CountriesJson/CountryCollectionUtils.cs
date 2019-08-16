@@ -11,7 +11,7 @@ namespace CountriesJson
             return countries.Sum(country => country.Population);
         }
 
-        public static IList<Currency> GetAllCurrencies(IEnumerable<Country> countries)
+        public static List<Currency> GetAllCurrencies(IEnumerable<Country> countries)
         {
             return countries.SelectMany(country => country.Currencies)
                 .GroupBy(currency => currency.Code)

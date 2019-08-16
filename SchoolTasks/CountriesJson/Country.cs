@@ -8,6 +8,6 @@ namespace CountriesJson
     {
         public string Name { get; set; }
         public int Population { get; set; }
-        public IList<Currency> Currencies { get; set; }
+        public List<Currency> Currencies { get; set; }
     }
 }
