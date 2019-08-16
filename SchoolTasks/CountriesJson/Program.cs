@@ -14,11 +14,11 @@ namespace CountriesJson
                 var countriesRawData = reader.ReadToEnd();
                 var countriesDeserializedData = JsonConvert.DeserializeObject<IList<Country>>(countriesRawData);
 
-                Console.WriteLine("Whole population: " + countriesDeserializedData.GetWholePopulation());
+                Console.WriteLine("Whole population: " + CountryCollectionUtils.GetWholePopulation(countriesDeserializedData));
 
                 Console.WriteLine();
 
-                var currencies = countriesDeserializedData.GetAllCurrencies();
+                var currencies = CountryCollectionUtils.GetAllCurrencies(countriesDeserializedData);
                 Console.WriteLine("All currencies:");
                 Console.WriteLine(string.Join(Environment.NewLine, currencies));
             }

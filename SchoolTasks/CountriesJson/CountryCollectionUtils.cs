@@ -6,12 +6,12 @@ namespace CountriesJson
 {
     public static class CountryCollectionUtils
     {
-        public static int GetWholePopulation(this IEnumerable<Country> countries)
+        public static int GetWholePopulation(IEnumerable<Country> countries)
         {
             return countries.Sum(country => country.Population);
         }
 
-        public static IList<Currency> GetAllCurrencies(this IEnumerable<Country> countries)
+        public static IList<Currency> GetAllCurrencies(IEnumerable<Country> countries)
         {
 //            var currencies = new List<Currency>();
 
