@@ -36,9 +36,10 @@ namespace Excel
                     worksheet.Cells[row, 2].Value = person.LastName;
                     worksheet.Cells[row, 3].Value = person.Age;
 
-                    worksheet.Cells[row, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    worksheet.Cells[row, 2].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    worksheet.Cells[row, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    for (int i = 1; i <= 3; i++)
+                    {
+                        worksheet.Cells[row, i].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    }
                 }
 
                 worksheet.Cells[1, 1, 1, 3].AutoFitColumns(1);
