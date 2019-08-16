@@ -14,7 +14,8 @@ namespace CountriesJson
                 var countriesRawData = reader.ReadToEnd();
                 var countriesDeserializedData = JsonConvert.DeserializeObject<IList<Country>>(countriesRawData);
 
-                Console.WriteLine("Whole population: " + CountryCollectionUtils.GetWholePopulation(countriesDeserializedData));
+                Console.WriteLine("Whole population: " +
+                                  CountryCollectionUtils.GetWholePopulation(countriesDeserializedData));
 
                 Console.WriteLine();
 
