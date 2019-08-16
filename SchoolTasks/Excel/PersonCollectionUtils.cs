@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -9,6 +10,11 @@ namespace Excel
     {
         public static void WriteToSpreadsheet(this IEnumerable<Person> persons, FileInfo outputFile)
         {
+            if (outputFile.Exists)
+            {
+                outputFile.Delete();
+            }
+
             const int propertiesCount = 3;
 
             using (var excelPackage = new ExcelPackage(outputFile))
