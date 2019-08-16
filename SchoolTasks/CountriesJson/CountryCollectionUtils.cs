@@ -13,9 +13,10 @@ namespace CountriesJson
 
         public static IList<Currency> GetAllCurrencies(IEnumerable<Country> countries)
         {
-//            var currencies = new List<Currency>();
-
-            return countries.SelectMany(country => country.Currencies).ToList();
+            return countries.SelectMany(country => country.Currencies)
+                .GroupBy(currency => currency.Code)
+                .Select(currencies => currencies.First())
+                .ToList();
         }
     }
 }
