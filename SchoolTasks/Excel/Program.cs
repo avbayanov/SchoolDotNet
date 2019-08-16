@@ -8,12 +8,12 @@ namespace Excel
         {
             var persons = new Person[]
             {
-                new Person("FirstName1", "LastName1", 1),
-                new Person("FirstName2", "LastName2", 2),
-                new Person("FirstName3", "LastName3", 3),
-                new Person("FirstName4", "LastName4", 4),
-                new Person("FirstName5", "LastName5", 5),
-                new Person("FirstName6", "LastName6", 6)
+                new Person {FirstName = "FirstName1", LastName = "LastName1", Age = 1},
+                new Person {FirstName = "FirstName2", LastName = "LastName2", Age = 2},
+                new Person {FirstName = "FirstName3", LastName = "LastName3", Age = 3},
+                new Person {FirstName = "FirstName4", LastName = "LastName4", Age = 4},
+                new Person {FirstName = "FirstName5", LastName = "LastName5", Age = 5},
+                new Person {FirstName = "FirstName6", LastName = "LastName6", Age = 6}
             };
 
             var outputFile = new FileInfo("output.xlsx");
