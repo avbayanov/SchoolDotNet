@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace Excel
 {
@@ -10,12 +11,17 @@ namespace Excel
         {
             using (var excelPackage = new ExcelPackage(outputFile))
             {
-                var worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Persons");
 
-                worksheet.Column(1).Width = 20;
-                worksheet.Column(2).Width = 20;
-                worksheet.Column(3).Width = 7;
                 worksheet.Column(3).Style.Numberformat.Format = "#";
+
+                worksheet.Cells[1, 1, 1, 3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                worksheet.Cells[1, 1, 1, 3].Style.Font.Bold = true;
+
+                for (int i = 1; i <= 3; i++)
+                {
+                    worksheet.Cells[1, i].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                }
 
                 worksheet.Cells[1, 1].Value = "First Name";
                 worksheet.Cells[1, 2].Value = "Last Name";
@@ -29,7 +35,13 @@ namespace Excel
                     worksheet.Cells[row, 1].Value = person.FirstName;
                     worksheet.Cells[row, 2].Value = person.LastName;
                     worksheet.Cells[row, 3].Value = person.Age;
+
+                    worksheet.Cells[row, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    worksheet.Cells[row, 2].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    worksheet.Cells[row, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 }
+
+                worksheet.Cells[1, 1, 1, 3].AutoFitColumns(1);
 
                 excelPackage.Save();
             }
