@@ -5,13 +5,13 @@ USE Shop;
 CREATE TABLE [dbo].[Categories]
 (
 	[Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-	[Name] VARCHAR(100) NOT NULL 
+	[Name] NVARCHAR(100) NOT NULL 
 );
 
 CREATE TABLE [dbo].[Products]
 (
 	[Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-	[Name] VARCHAR(100) NOT NULL,
+	[Name] NVARCHAR(100) NOT NULL,
 	[Price] INT NOT NULL,
 	[CategoryId] INT NOT NULL,
 	FOREIGN KEY (CategoryId) REFERENCES [dbo].[Categories] (Id)
