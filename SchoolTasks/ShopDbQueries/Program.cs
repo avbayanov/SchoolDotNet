@@ -135,9 +135,9 @@ namespace ShopDbQueries
         {
             var query = "SELECT Products.Name, Price, Categories.Name AS Category FROM Products LEFT JOIN Categories ON Products.CategoryId = Categories.Id";
 
-            SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+            var adapter = new SqlDataAdapter(query, connection);
 
-            DataSet allProducts = new DataSet();
+            var allProducts = new DataSet();
 
             adapter.Fill(allProducts);
 
