@@ -1,5 +1,6 @@
 CREATE DATABASE Shop;
 
+GO
 USE Shop;
 
 CREATE TABLE [dbo].[Categories]
@@ -18,11 +19,11 @@ CREATE TABLE [dbo].[Products]
 );
 
 INSERT INTO [dbo].[Categories] (Name) 
-VALUES  ('Category1'), ('Category2'), ('Category3');
+VALUES  (N'Category1'), (N'Category2'), (N'Category3');
 
 INSERT INTO [dbo].[Products] (Name, Price, CategoryId)
 VALUES 
-	('Product1', 100, 1),
-	('Product2', 200, 2),
-	('Product3', 300, 3),
-	('Product4', 400, 1);
+	(N'Product1', 100, 1),
+	(N'Product2', 200, 2),
+	(N'Product3', 300, 3),
+	(N'Product4', 400, 1);
