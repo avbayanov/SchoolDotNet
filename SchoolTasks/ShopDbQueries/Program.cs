@@ -56,7 +56,8 @@ namespace ShopDbQueries
 
         private static int GetProductsCount(SqlConnection connection)
         {
-            var query = "SELECT COUNT(*) FROM Products";
+            var query = "SELECT COUNT(*) " +
+                        "FROM Products";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -66,7 +67,8 @@ namespace ShopDbQueries
 
         private static bool AddCategory(SqlConnection connection, string category)
         {
-            var query = "INSERT INTO Categories (Name) VALUES (@category)";
+            var query = "INSERT INTO Categories (Name) " +
+                        "VALUES (@category)";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -78,7 +80,8 @@ namespace ShopDbQueries
 
         private static bool AddProduct(SqlConnection connection, string name, int price, int categoryId)
         {
-            var query = "INSERT INTO Products (Name, Price, categoryId) VALUES (@name, @price, @categoryId)";
+            var query = "INSERT INTO Products (Name, Price, categoryId) " +
+                        "VALUES (@name, @price, @categoryId)";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -92,7 +95,9 @@ namespace ShopDbQueries
 
         private static bool ChangeProductPrice(SqlConnection connection, int id, int price)
         {
-            var query = "UPDATE Products SET Price = @price WHERE Id = @id";
+            var query = "UPDATE Products " +
+                        "SET Price = @price " +
+                        "WHERE Id = @id";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -105,7 +110,8 @@ namespace ShopDbQueries
 
         private static bool DeleteProductByName(SqlConnection connection, string name)
         {
-            var query = "DELETE FROM Products WHERE Name = @name";
+            var query = "DELETE FROM Products " +
+                        "WHERE Name = @name";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -117,7 +123,10 @@ namespace ShopDbQueries
 
         private static void PrintAllProducts(SqlConnection connection)
         {
-            var query = "SELECT Products.Name, Price, Categories.Name AS Category FROM Products LEFT JOIN Categories ON Products.CategoryId = Categories.Id";
+            var query = "SELECT Products.Name, Price, Categories.Name AS Category " +
+                        "FROM Products " +
+                        "LEFT JOIN Categories " +
+                        "ON Products.CategoryId = Categories.Id";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -133,7 +142,10 @@ namespace ShopDbQueries
 
         private static void PrintAllProductsUsingDataSet(SqlConnection connection)
         {
-            var query = "SELECT Products.Name, Price, Categories.Name AS Category FROM Products LEFT JOIN Categories ON Products.CategoryId = Categories.Id";
+            var query = "SELECT Products.Name, Price, Categories.Name AS Category " +
+                        "FROM Products " +
+                        "LEFT JOIN Categories " +
+                        "ON Products.CategoryId = Categories.Id";
 
             var adapter = new SqlDataAdapter(query, connection);
 
