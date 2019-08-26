@@ -23,7 +23,8 @@ namespace ShopEf
                 .HasKey(f => f.Id);
             modelBuilder.Entity<Category>()
                 .Property(f => f.Name)
-                .IsRequired().HasMaxLength(stringMaxLength);
+                .IsRequired()
+                .HasMaxLength(stringMaxLength);
 
             modelBuilder.Entity<Customer>()
                 .HasKey(f => f.Id);
