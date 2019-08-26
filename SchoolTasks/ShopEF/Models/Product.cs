@@ -13,7 +13,7 @@ namespace ShopEf.Models
 
         public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
-        public virtual ICollection<OrdersProducts> ProductOrders { get; set; } = new List<OrdersProducts>();
+        public virtual ICollection<OrderProduct> ProductOrders { get; set; } = new List<OrderProduct>();
 
         public override string ToString()
         {

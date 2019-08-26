@@ -170,30 +170,30 @@ namespace ShopEf
             var order1 = new Order {Customer = customers[0]};
             shopContext.Orders.Add(order1);
 
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order1, Product = products[0]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order1, Product = products[0]});
 
             var order2 = new Order {Customer = customers[1]};
             shopContext.Orders.Add(order2);
 
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order2, Product = products[0]});
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order2, Product = products[1]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[0]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[1]});
 
             var order3 = new Order {Customer = customers[2]};
             shopContext.Orders.Add(order3);
 
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order3, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order3, Product = products[2]});
 
             var order4 = new Order {Customer = customers[0]};
             shopContext.Orders.Add(order4);
 
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order4, Product = products[0]});
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order4, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[0]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[2]});
 
             var order5 = new Order {Customer = customers[2]};
             shopContext.Orders.Add(order5);
 
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order5, Product = products[2]});
-            shopContext.OrdersProducts.Add(new OrdersProducts {Order = order5, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order5, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order5, Product = products[2]});
 
             shopContext.SaveChanges();
 

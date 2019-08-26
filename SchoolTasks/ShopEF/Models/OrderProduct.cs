@@ -1,6 +1,6 @@
 ﻿namespace ShopEf.Models
 {
-    public class OrdersProducts
+    public class OrderProduct
     {
         public int Id { get; set; }
 

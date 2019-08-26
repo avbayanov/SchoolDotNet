@@ -11,7 +11,7 @@ namespace ShopEf.Models
 
         public Customer Customer { get; set; }
 
-        public virtual ICollection<OrdersProducts> OrderProducts { get; set; } = new List<OrdersProducts>();
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 
         public override string ToString()
         {

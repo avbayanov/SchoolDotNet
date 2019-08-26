@@ -9,7 +9,7 @@ namespace ShopEf
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrdersProducts> OrdersProducts { get; set; }
+        public DbSet<OrderProduct> OrdersProducts { get; set; }
 
         public ShopContext() : base("DefaultConnection")
         {
@@ -25,12 +25,12 @@ namespace ShopEf
             modelBuilder.Entity<Customer>().Property(f => f.Phone).IsRequired();
             modelBuilder.Entity<Customer>().Property(f => f.Email).IsOptional();
 
-            modelBuilder.Entity<OrdersProducts>().HasKey(f => f.Id);
-            modelBuilder.Entity<OrdersProducts>()
+            modelBuilder.Entity<OrderProduct>().HasKey(f => f.Id);
+            modelBuilder.Entity<OrderProduct>()
                 .HasRequired(f => f.Product)
                 .WithMany(f => f.ProductOrders)
                 .HasForeignKey(f => f.ProductId);
-            modelBuilder.Entity<OrdersProducts>()
+            modelBuilder.Entity<OrderProduct>()
                 .HasRequired(f => f.Order)
                 .WithMany(f => f.OrderProducts)
                 .HasForeignKey(f => f.OrderId);
