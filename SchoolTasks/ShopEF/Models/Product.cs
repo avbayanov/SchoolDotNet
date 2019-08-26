@@ -19,7 +19,7 @@ namespace ShopEf.Models
         {
             return $"[ Id = {Id}, Name = '{Name}', Price = {Price}," +
                    $" CategoriesIds = [{string.Join(", ", Categories.Select(category => category.Id))}]," +
-                   $" OrdersIds = [{string.Join(", ", ProductOrders.Select(order => order.Id))}] ]";
+                   $" OrdersIds = [{string.Join(", ", ProductOrders.Select(orderProduct => orderProduct.OrderId))}] ]";
         }
     }
 }

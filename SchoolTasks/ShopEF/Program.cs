@@ -64,10 +64,12 @@ namespace ShopEf
                 Console.WriteLine();
 
                 var productMaxOrders = shopDb.Products
-                    .Max(product => product.ProductOrders.Count);
+                    .Max(product => product.ProductOrders
+                        .Sum(orderProduct => orderProduct.Quantity));
 
                 var mostPopularProducts = shopDb.Products
-                    .Where(product => product.ProductOrders.Count == productMaxOrders);
+                    .Where(product =>
+                        product.ProductOrders.Sum(orderProduct => orderProduct.Quantity) == productMaxOrders);
 
                 Console.WriteLine("Most popular products: ");
                 Console.WriteLine(string.Join(Environment.NewLine, mostPopularProducts.ToList()));
@@ -79,9 +81,9 @@ namespace ShopEf
                     .Select(g => new
                     {
                         Id = g.Key,
-                        Sum = g.SelectMany(customer =>
-                                customer.Orders.SelectMany(order =>
-                                    order.OrderProducts.Select(orderProduct => orderProduct.Product.Price)))
+                        Sum = g.SelectMany(customer => customer.Orders
+                                .SelectMany(order => order.OrderProducts
+                                    .Select(orderProduct => orderProduct.Product.Price * orderProduct.Quantity)))
                             .DefaultIfEmpty(0)
                             .Sum()
                     })
@@ -101,16 +103,17 @@ namespace ShopEf
                     .Select(g => new
                     {
                         Id = g.Key,
-                        Count = g.SelectMany(category =>
-                                category.Products.SelectMany(product =>
-                                    product.ProductOrders))
-                            .Count()
-                    })
+                        Quantity = g.SelectMany(category => category.Products
+                                    .SelectMany(product => product.ProductOrders))
+                                    .Select(orderProduct => orderProduct.Quantity)
+                                    .DefaultIfEmpty(0)
+                                    .Sum()
+                    }) 
                     .AsEnumerable()
                     .Join(categories,
                         p => p.Id,
                         t => t.Id,
-                        (p, t) => new {p.Id, t.Name, p.Count});
+                        (p, t) => new {p.Id, t.Name, p.Quantity});
 
                 Console.WriteLine("Sales by categories: ");
                 Console.WriteLine(string.Join(Environment.NewLine, categorySales.ToList()));
@@ -170,30 +173,29 @@ namespace ShopEf
             var order1 = new Order {Customer = customers[0]};
             shopContext.Orders.Add(order1);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order1, Product = products[0]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order1, Product = products[0], Quantity = 1});
 
             var order2 = new Order {Customer = customers[1]};
             shopContext.Orders.Add(order2);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[0]});
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[1]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[0], Quantity = 1});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[1], Quantity = 1});
 
             var order3 = new Order {Customer = customers[2]};
             shopContext.Orders.Add(order3);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order3, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order3, Product = products[2], Quantity = 1});
 
             var order4 = new Order {Customer = customers[0]};
             shopContext.Orders.Add(order4);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[0]});
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[0], Quantity = 1});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[2], Quantity = 1});
 
             var order5 = new Order {Customer = customers[2]};
             shopContext.Orders.Add(order5);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order5, Product = products[2]});
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order5, Product = products[2]});
+            shopContext.OrdersProducts.Add(new OrderProduct {Order = order5, Product = products[2], Quantity = 2});
 
             shopContext.SaveChanges();
 

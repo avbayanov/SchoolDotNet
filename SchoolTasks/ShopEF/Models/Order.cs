@@ -15,7 +15,7 @@ namespace ShopEf.Models
 
         public override string ToString()
         {
-            return $"[ Id = {Id}, Customer = {Customer}, ProductsIds = [{string.Join(", ", OrderProducts.Select(product => product.Id))}] ]";
+            return $"[ Id = {Id}, Customer = {Customer}, ProductsIds = [{string.Join(", ", OrderProducts.Select(orderProduct => orderProduct.ProductId))}] ]";
         }
     }
 }

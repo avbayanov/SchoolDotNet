@@ -25,7 +25,11 @@ namespace ShopEf
             modelBuilder.Entity<Customer>().Property(f => f.Phone).IsRequired();
             modelBuilder.Entity<Customer>().Property(f => f.Email).IsOptional();
 
-            modelBuilder.Entity<OrderProduct>().HasKey(f => f.Id);
+            modelBuilder.Entity<OrderProduct>().HasKey(f => 
+                new
+                {
+                    f.OrderId, f.ProductId
+                });
             modelBuilder.Entity<OrderProduct>()
                 .HasRequired(f => f.Product)
                 .WithMany(f => f.ProductOrders)
@@ -34,6 +38,7 @@ namespace ShopEf
                 .HasRequired(f => f.Order)
                 .WithMany(f => f.OrderProducts)
                 .HasForeignKey(f => f.OrderId);
+            modelBuilder.Entity<OrderProduct>().Property(f => f.Quantity).IsRequired();
 
             modelBuilder.Entity<Product>().HasKey(f => f.Id);
             modelBuilder.Entity<Product>().Property(f => f.Name).IsRequired();
