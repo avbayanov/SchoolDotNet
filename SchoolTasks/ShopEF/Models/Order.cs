@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ShopEf
+namespace ShopEf.Models
 {
     public class Order
     {

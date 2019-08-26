@@ -1,4 +1,4 @@
-﻿namespace ShopEf
+﻿namespace ShopEf.Models
 {
     public class OrdersProducts
     {
