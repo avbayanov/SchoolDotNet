@@ -18,8 +18,7 @@ namespace ShopEf.Models
         public override string ToString()
         {
             return $"[ Id = {Id}, Name = '{Name}', Price = {Price}," +
-                   $" CategoriesIds = [{string.Join(", ", Categories.Select(category => category.Id))}]," +
-                   $" OrdersIds = [{string.Join(", ", ProductOrders.Select(orderProduct => orderProduct.OrderId))}] ]";
+                   $" CategoriesIds = [{string.Join(", ", Categories.Select(category => category.Id))}] ]";
         }
     }
 }
