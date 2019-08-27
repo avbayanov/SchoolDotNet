@@ -34,7 +34,7 @@ namespace Flats
 
         private static bool IsFlatExists(int desiredFlat, int flatsInEntrance, int entrances)
         {
-            return desiredFlat >= 0 && desiredFlat <= flatsInEntrance * entrances;
+            return desiredFlat > 0 && desiredFlat <= flatsInEntrance * entrances;
         }
 
         private static int GetFoundEntrance(int desiredFlat, int flatsInEntrance)
