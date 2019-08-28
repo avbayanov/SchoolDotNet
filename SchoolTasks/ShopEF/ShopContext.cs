@@ -58,9 +58,6 @@ namespace ShopEf
                 .HasRequired(f => f.Order)
                 .WithMany(f => f.OrderProducts)
                 .HasForeignKey(f => f.OrderId);
-            modelBuilder.Entity<OrderProduct>()
-                .Property(f => f.Quantity)
-                .IsRequired();
 
             modelBuilder.Entity<Product>()
                 .HasKey(f => f.Id);
@@ -68,9 +65,6 @@ namespace ShopEf
                 .Property(f => f.Name)
                 .IsRequired()
                 .HasMaxLength(stringMaxLength);
-            modelBuilder.Entity<Product>()
-                .Property(f => f.Price)
-                .IsRequired();
 
             modelBuilder.Entity<Order>()
                 .HasKey(f => f.Id);
