@@ -6,7 +6,9 @@ namespace ShopEf.Models
     {
         public int Id { get; set; }
 
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public string Phone { get; set; }
 
@@ -16,7 +18,7 @@ namespace ShopEf.Models
 
         public override string ToString()
         {
-            return $"[ Id = {Id}, FullName = {FullName}, Phone = {Phone}, Email = {Email} ]";
+            return $"[ Id = {Id}, FirstName = {FirstName}, LastName = {LastName}, Phone = {Phone}, Email = {Email} ]";
         }
     }
 }

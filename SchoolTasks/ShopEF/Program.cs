@@ -52,10 +52,10 @@ namespace ShopEf
                 shopDb.SaveChanges();
 
                 Console.WriteLine();
-                Console.WriteLine("Deleting all orders made by customer with name == Customer2");
+                Console.WriteLine("Deleting all orders made by customer with ast name == Customer2LastName");
 
                 var customer2Id = shopDb.Customers
-                    .FirstOrDefault(customer => customer.FullName == "Customer2")
+                    .FirstOrDefault(customer => customer.LastName == "Customer2LastName")
                     .Id;
 
                 shopDb.Orders.RemoveRange(shopDb.Orders.Where(order => order.CustomerId == customer2Id));
@@ -91,7 +91,7 @@ namespace ShopEf
                     .Join(customers,
                         p => p.Id,
                         t => t.Id,
-                        (p, t) => new {p.Id, t.FullName, p.Sum});
+                        (p, t) => new {p.Id, t.FirstName, t.LastName, p.Sum});
 
                 Console.WriteLine("Customers with expenses: ");
                 Console.WriteLine(string.Join(Environment.NewLine, customersWithExpenses.ToList()));
@@ -138,13 +138,13 @@ namespace ShopEf
 
         private static List<Customer> FillCustomers(ShopContext shopContext)
         {
-            var customer1 = new Customer {FullName = "Customer1", Email = "cus1@cus.com", Phone = "12345"};
+            var customer1 = new Customer {FirstName = "Customer1FirstName", LastName = "Customer1LastName", Email = "cus1@cus.com", Phone = "12345"};
             shopContext.Customers.Add(customer1);
 
-            var customer2 = new Customer {FullName = "Customer2", Email = "cus2@cus.com", Phone = "77777"};
+            var customer2 = new Customer {FirstName = "Customer2FirstName", LastName = "Customer2LastName", Email = "cus2@cus.com", Phone = "77777"};
             shopContext.Customers.Add(customer1);
 
-            var customer3 = new Customer {FullName = "Customer3", Phone = "99999"};
+            var customer3 = new Customer {FirstName = "Customer3FirstName", LastName = "Customer3LastName", Phone = "99999"};
             shopContext.Customers.Add(customer1);
 
             shopContext.SaveChanges();

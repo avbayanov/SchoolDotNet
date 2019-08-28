@@ -29,7 +29,11 @@ namespace ShopEf
             modelBuilder.Entity<Customer>()
                 .HasKey(f => f.Id);
             modelBuilder.Entity<Customer>()
-                .Property(f => f.FullName)
+                .Property(f => f.FirstName)
+                .IsRequired()
+                .HasMaxLength(stringMaxLength);
+            modelBuilder.Entity<Customer>()
+                .Property(f => f.LastName)
                 .IsRequired()
                 .HasMaxLength(stringMaxLength);
             modelBuilder.Entity<Customer>()
