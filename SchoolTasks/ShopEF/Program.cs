@@ -77,21 +77,17 @@ namespace ShopEf
                 Console.WriteLine();
 
                 var customersWithExpenses = shopDb.Customers
-                    .GroupBy(customer => customer.Id)
-                    .Select(g => new
+                    .Select(customer => new
                     {
-                        Id = g.Key,
-                        Sum = g.SelectMany(customer => customer.Orders
-                                .SelectMany(order => order.OrderProducts
-                                    .Select(orderProduct => orderProduct.Product.Price * orderProduct.Quantity)))
+                        customer.Id,
+                        customer.FirstName,
+                        customer.LastName,
+                        Sum = customer.Orders
+                            .SelectMany(order => order.OrderProducts
+                                .Select(orderProduct => orderProduct.Product.Price * orderProduct.Quantity))
                             .DefaultIfEmpty(0)
                             .Sum()
-                    })
-                    .AsEnumerable()
-                    .Join(customers,
-                        p => p.Id,
-                        t => t.Id,
-                        (p, t) => new {p.Id, t.FirstName, t.LastName, p.Sum});
+                    });
 
                 Console.WriteLine("Customers with expenses: ");
                 Console.WriteLine(string.Join(Environment.NewLine, customersWithExpenses.ToList()));
@@ -99,21 +95,16 @@ namespace ShopEf
                 Console.WriteLine();
 
                 var categorySales = shopDb.Categories
-                    .GroupBy(category => category.Id)
-                    .Select(g => new
+                    .Select(category => new
                     {
-                        Id = g.Key,
-                        Quantity = g.SelectMany(category => category.Products
-                                    .SelectMany(product => product.ProductOrders))
-                                    .Select(orderProduct => orderProduct.Quantity)
-                                    .DefaultIfEmpty(0)
-                                    .Sum()
-                    }) 
-                    .AsEnumerable()
-                    .Join(categories,
-                        p => p.Id,
-                        t => t.Id,
-                        (p, t) => new {p.Id, t.Name, p.Quantity});
+                        category.Id,
+                        category.Name,
+                        Quantity = category.Products
+                            .SelectMany(product => product.ProductOrders)
+                            .Select(orderProduct => orderProduct.Quantity)
+                            .DefaultIfEmpty(0)
+                            .Sum()
+                    });
 
                 Console.WriteLine("Sales by categories: ");
                 Console.WriteLine(string.Join(Environment.NewLine, categorySales.ToList()));
