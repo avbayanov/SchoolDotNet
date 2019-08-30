@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using ShopEf.Models;
 
 namespace ShopEf
@@ -46,10 +48,21 @@ namespace ShopEf
                 .HasMaxLength(stringMaxLength);
 
             modelBuilder.Entity<OrderProduct>()
-                .HasKey(f => new
-                    {
-                        f.OrderId, f.ProductId
-                    });
+                .HasKey(f => f.Id);
+            modelBuilder.Entity<OrderProduct>()
+                .Property(f => f.OrderId)
+                .IsRequired()
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(
+                        new IndexAttribute("OrderIdProductId", 1) {IsUnique = true}));
+            modelBuilder.Entity<OrderProduct>()
+                .Property(f => f.ProductId)
+                .IsRequired()
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(
+                        new IndexAttribute("OrderIdProductId", 2) { IsUnique = true }));
             modelBuilder.Entity<OrderProduct>()
                 .HasRequired(f => f.Product)
                 .WithMany(f => f.ProductOrders)
