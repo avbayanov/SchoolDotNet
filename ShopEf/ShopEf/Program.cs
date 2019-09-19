@@ -66,7 +66,7 @@ namespace ShopEf
 
             using (var unitOfWork = new UnitOfWork(new ShopContext()))
             {
-                using (var transaction = unitOfWork._db.Database.BeginTransaction())
+                using (var transaction = unitOfWork.BeginTransaction())
                 {
                     try
                     {

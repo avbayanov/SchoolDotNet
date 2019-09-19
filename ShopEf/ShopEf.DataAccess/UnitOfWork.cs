@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Data.Entity;
 using ShopEf.DataAccess.Repositories;
 
@@ -6,7 +7,7 @@ namespace ShopEf.DataAccess
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public DbContext _db { get; private set; }
+        private DbContext _db;
 
         public UnitOfWork(DbContext db)
         {
@@ -21,6 +22,11 @@ namespace ShopEf.DataAccess
         public void Dispose()
         {
             _db.Dispose();
+        }
+
+        public DbContextTransaction BeginTransaction()
+        {
+            return _db.Database.BeginTransaction();
         }
 
         public T GetRepository<T>() where T : class, IRepository
