@@ -1,6 +1,6 @@
 ﻿using ShopEf.DataAccess.Models;
 
-namespace ShopEf.DataAccess
+namespace ShopEf.DataAccess.Repositories
 {
     public interface IOrderProductRepository : IRepository<OrderProduct>
     {

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
+using ShopEf.DataAccess.Repositories;
 
 namespace ShopEf.DataAccess
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext _db;
+        public DbContext _db { get; private set; }
 
         public UnitOfWork(DbContext db)
         {

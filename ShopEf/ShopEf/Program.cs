@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using ShopEf.DataAccess;
 using ShopEf.DataAccess.Migrations;
 using ShopEf.DataAccess.Models;
+using ShopEf.DataAccess.Repositories;
 
 namespace ShopEf
 {
@@ -15,185 +15,249 @@ namespace ShopEf
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ShopContext, Configuration>());
 
-            using (var shopDb = new ShopContext())
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
             {
-                shopDb.Database.Log = s => Debug.WriteLine(s);
+                var categories = FillCategories(unitOfWork);
+                var customers = FillCustomers(unitOfWork);
+                var products = FillProducts(unitOfWork, categories);
+                FillOrders(unitOfWork, customers, products);
+            }
 
-                var categories = FillCategories(shopDb);
-                var customers = FillCustomers(shopDb);
-                var products = FillProducts(shopDb, categories);
-                FillOrders(shopDb, customers, products);
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var orderRepository = unitOfWork.GetRepository<IOrderRepository>();
 
                 Console.WriteLine("Order with id == 1 :");
-                Console.WriteLine(shopDb.Orders.FirstOrDefault(order => order.Id == 1));
+                Console.WriteLine(orderRepository.GetById(1));
+                Console.WriteLine();
+            }
 
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var productRepository = unitOfWork.GetRepository<IProductRepository>();
+                var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
+
+                var productsWithPrice123 = productRepository.GetProductsWithPrice(123);
+                Console.WriteLine("Products with (price == 123):");
+                Console.WriteLine(string.Join(Environment.NewLine, productsWithPrice123.ToList()));
                 Console.WriteLine();
 
-                var productWithPrice123 = shopDb.Products
-                    .FirstOrDefault(product => product.Price == 123);
-
-                Console.WriteLine("Product with price == 123 :");
-                Console.WriteLine(productWithPrice123);
-
+                var customersWhoBoughtProductsWithPrice123 = productsWithPrice123
+                    .SelectMany(productWithPrice123 => customerRepository
+                        .GetCustomersWhoBoughtProduct(productWithPrice123))
+                    .Distinct(); 
+                Console.WriteLine("Customers who bought them: ");
+                Console.WriteLine(string.Join(Environment.NewLine, customersWhoBoughtProductsWithPrice123.ToList()));
                 Console.WriteLine();
+            }
 
-                var customersBoughtProductWithPrice123 = shopDb.Products
-                    .FirstOrDefault(product => product.Id == productWithPrice123.Id)
-                    .ProductOrders
-                    .Select(productOrder => productOrder.Order)
-                    .Select(order => order.Customer)
-                    .Distinct()
-                    .ToList();
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var productRepository = unitOfWork.GetRepository<IProductRepository>();
 
-                Console.WriteLine("Customers who bought {0} : ", productWithPrice123);
-                Console.WriteLine(string.Join(Environment.NewLine, customersBoughtProductWithPrice123));
-
-                Console.WriteLine();
                 Console.WriteLine("Setting price = 800 for product with name == Product3");
-
-                shopDb.Products
-                    .FirstOrDefault(product => product.Name == "Product3")
-                    .Price = 800;
-                shopDb.SaveChanges();
-
-                Console.WriteLine();
-                Console.WriteLine("Deleting all orders made by customer with ast name == Customer2LastName");
-
-                var customer2Id = shopDb.Customers
-                    .FirstOrDefault(customer => customer.LastName == "Customer2LastName")
-                    .Id;
-
-                shopDb.Orders.RemoveRange(shopDb.Orders.Where(order => order.CustomerId == customer2Id));
-                shopDb.SaveChanges();
-
                 Console.WriteLine();
 
-                var productMaxOrders = shopDb.Products
-                    .Max(product => product.ProductOrders
-                        .Sum(orderProduct => orderProduct.Quantity));
+                var productWithNameProduct3 = productRepository.GetProductByName("Product3");
+                productWithNameProduct3.Price = 800;
 
-                var mostPopularProducts = shopDb.Products
-                    .Where(product =>
-                        product.ProductOrders.Sum(orderProduct => orderProduct.Quantity) == productMaxOrders);
+                unitOfWork.Save();
+            }
+
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                using (var transaction = unitOfWork._db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
+                        var orderRepository = unitOfWork.GetRepository<IOrderRepository>();
+
+                        var customersWithLastNameCustomer2Ids = customerRepository
+                            .GetCustomersWithLastName("Customer2LastName")
+                            .Select(customer => customer.Id);
+
+                        var ordersMadeByThem = customersWithLastNameCustomer2Ids
+                            .SelectMany(customerId => orderRepository
+                                .GetOrdersMadeByCustomerWithId(customerId))
+                            .ToArray();
+
+                        Console.WriteLine("Deleting all orders made by customers with Last name == Customer2LastName");
+                        Console.WriteLine();
+
+                        foreach (var order in ordersMadeByThem)
+                        {
+                            orderRepository.Delete(order);
+                        }
+
+                        unitOfWork.Save();
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+            }
+
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
+                var orderRepository = unitOfWork.GetRepository<IOrderRepository>();
+
+                var customersWithLastNameCustomer2Ids = customerRepository
+                    .GetCustomersWithLastName("Customer2LastName")
+                    .Select(customer => customer.Id);
+
+                var ordersMadeByThem = customersWithLastNameCustomer2Ids
+                    .SelectMany(customerId => orderRepository
+                        .GetOrdersMadeByCustomerWithId(customerId))
+                    .ToArray();
+
+                Console.WriteLine("Deleting all orders made by customers with Last name == Customer2LastName");
+                Console.WriteLine();
+
+                foreach (var order in ordersMadeByThem)
+                {
+                    orderRepository.Delete(order);
+                }
+
+                unitOfWork.Save();
+            }
+
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var productRepository = unitOfWork.GetRepository<IProductRepository>();
+
+                var mostPopularProducts = productRepository.GetMostPopularProducts();
 
                 Console.WriteLine("Most popular products: ");
-                Console.WriteLine(string.Join(Environment.NewLine, mostPopularProducts.ToList()));
-
+                Console.WriteLine(string.Join(Environment.NewLine, mostPopularProducts));
                 Console.WriteLine();
+            }
 
-                var customersWithExpenses = shopDb.Customers
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
+
+                var customersWithExpenses = customerRepository.GetAll()
                     .Select(customer => new
                     {
                         customer.Id,
                         customer.FirstName,
                         customer.LastName,
-                        Sum = customer.Orders
-                            .SelectMany(order => order.OrderProducts
-                                .Select(orderProduct => orderProduct.Product.Price * orderProduct.Quantity))
-                            .DefaultIfEmpty(0)
-                            .Sum()
-                    });
+                        Expenses = customerRepository.GetExpensesByCustomer(customer)
+                    }).ToList();
 
                 Console.WriteLine("Customers with expenses: ");
-                Console.WriteLine(string.Join(Environment.NewLine, customersWithExpenses.ToList()));
-
+                Console.WriteLine(string.Join(Environment.NewLine, customersWithExpenses));
                 Console.WriteLine();
+            }
 
-                var categorySales = shopDb.Categories
+            using (var unitOfWork = new UnitOfWork(new ShopContext()))
+            {
+                var categoryRepository = unitOfWork.GetRepository<ICategoryRepository>();
+
+                var categorySales = categoryRepository.GetAll()
                     .Select(category => new
                     {
                         category.Id,
                         category.Name,
-                        Quantity = category.Products
-                            .SelectMany(product => product.ProductOrders)
-                            .Select(orderProduct => orderProduct.Quantity)
-                            .DefaultIfEmpty(0)
-                            .Sum()
-                    });
+                        Sales = categoryRepository.GetSalesByCategory(category)
+                    }).ToList();
 
                 Console.WriteLine("Sales by categories: ");
-                Console.WriteLine(string.Join(Environment.NewLine, categorySales.ToList()));
+                Console.WriteLine(string.Join(Environment.NewLine, categorySales));
             }
         }
 
-        private static List<Category> FillCategories(ShopContext shopContext)
+        private static List<Category> FillCategories(UnitOfWork unitOfWork)
         {
-            var category1 = new Category {Name = "Category1"};
-            shopContext.Categories.Add(category1);
+            var categoryRepository = unitOfWork.GetRepository<ICategoryRepository>();
 
-            var category2 = new Category {Name = "Category2"};
-            shopContext.Categories.Add(category1);
+            var category1 = new Category { Name = "Category1" };
+            categoryRepository.Create(category1);
 
-            var category3 = new Category {Name = "Category3"};
-            shopContext.Categories.Add(category1);
+            var category2 = new Category { Name = "Category2" };
+            categoryRepository.Create(category2);
 
-            shopContext.SaveChanges();
+            var category3 = new Category { Name = "Category3" };
+            categoryRepository.Create(category3);
+
+            unitOfWork.Save();
 
             return new List<Category> {category1, category2, category3};
         }
 
-        private static List<Customer> FillCustomers(ShopContext shopContext)
+        private static List<Customer> FillCustomers(UnitOfWork unitOfWork)
         {
+            var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
+
             var customer1 = new Customer {FirstName = "Customer1FirstName", LastName = "Customer1LastName", Email = "cus1@cus.com", Phone = "12345", DateOfBirth = new DateTime(2019, 09, 04)};
-            shopContext.Customers.Add(customer1);
+            customerRepository.Create(customer1);
 
             var customer2 = new Customer {FirstName = "Customer2FirstName", LastName = "Customer2LastName", Email = "cus2@cus.com", Phone = "77777", DateOfBirth = new DateTime(1949, 05, 06)};
-            shopContext.Customers.Add(customer1);
+            customerRepository.Create(customer2);
 
             var customer3 = new Customer {FirstName = "Customer3FirstName", LastName = "Customer3LastName", Phone = "99999", DateOfBirth = new DateTime(2008, 09, 01)};
-            shopContext.Customers.Add(customer1);
+            customerRepository.Create(customer3);
 
-            shopContext.SaveChanges();
+            unitOfWork.Save();
 
             return new List<Customer> {customer1, customer2, customer3};
         }
 
-        private static List<Product> FillProducts(ShopContext shopContext, List<Category> categories)
+        private static List<Product> FillProducts(UnitOfWork unitOfWork, List<Category> categories)
         {
+            var productRepository = unitOfWork.GetRepository<IProductRepository>();
+
             var product1 = new Product {Name = "Product1", Price = 123, Categories = {categories[0]}};
-            shopContext.Products.Add(product1);
+            productRepository.Create(product1);
 
             var product2 = new Product {Name = "Product2", Price = 547, Categories = {categories[0], categories[1]}};
-            shopContext.Products.Add(product1);
+            productRepository.Create(product2);
 
             var product3 = new Product {Name = "Product3", Price = 569, Categories = {categories[2]}};
-            shopContext.Products.Add(product1);
+            productRepository.Create(product3);
 
-            shopContext.SaveChanges();
+            unitOfWork.Save();
 
             return new List<Product> {product1, product2, product3};
         }
 
-        private static List<Order> FillOrders(ShopContext shopContext, List<Customer> customers, List<Product> products)
+        private static List<Order> FillOrders(UnitOfWork unitOfWork, List<Customer> customers, List<Product> products)
         {
-            var order1 = new Order {Customer = customers[0]};
-            shopContext.Orders.Add(order1);
+            var orderRepository = unitOfWork.GetRepository<IOrderRepository>();
+            var orderProductRepository = unitOfWork.GetRepository<IOrderProductRepository>();
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order1, Product = products[0], Quantity = 1});
+            var order1 = new Order {Customer = customers[0]};
+            orderRepository.Create(order1);
+
+            orderProductRepository.Create(new OrderProduct {Order = order1, Product = products[0], Quantity = 1});
 
             var order2 = new Order {Customer = customers[1]};
-            shopContext.Orders.Add(order2);
+            orderRepository.Create(order2);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[0], Quantity = 1});
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order2, Product = products[1], Quantity = 1});
+            orderProductRepository.Create(new OrderProduct {Order = order2, Product = products[0], Quantity = 1});
+            orderProductRepository.Create(new OrderProduct {Order = order2, Product = products[1], Quantity = 1});
 
             var order3 = new Order {Customer = customers[2]};
-            shopContext.Orders.Add(order3);
+            orderRepository.Create(order3);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order3, Product = products[2], Quantity = 1});
+            orderProductRepository.Create(new OrderProduct {Order = order3, Product = products[2], Quantity = 1});
 
             var order4 = new Order {Customer = customers[0]};
-            shopContext.Orders.Add(order4);
+            orderRepository.Create(order4);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[0], Quantity = 1});
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order4, Product = products[2], Quantity = 1});
+            orderProductRepository.Create(new OrderProduct {Order = order4, Product = products[0], Quantity = 1});
+            orderProductRepository.Create(new OrderProduct {Order = order4, Product = products[2], Quantity = 1});
 
             var order5 = new Order {Customer = customers[2]};
-            shopContext.Orders.Add(order5);
+            orderRepository.Create(order5);
 
-            shopContext.OrdersProducts.Add(new OrderProduct {Order = order5, Product = products[2], Quantity = 2});
+            orderProductRepository.Create(new OrderProduct {Order = order5, Product = products[2], Quantity = 2});
 
-            shopContext.SaveChanges();
+            unitOfWork.Save();
 
             return new List<Order> {order1, order2, order3, order4, order5};
         }

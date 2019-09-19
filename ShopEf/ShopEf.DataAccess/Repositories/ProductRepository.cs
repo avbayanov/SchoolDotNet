@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using ShopEf.DataAccess.Models;
 
-namespace ShopEf.DataAccess
+namespace ShopEf.DataAccess.Repositories
 {
     public class ProductRepository : BaseEfRepository<Product>, IProductRepository
     {
@@ -11,10 +11,28 @@ namespace ShopEf.DataAccess
         {
         }
 
+        public Product GetProductByName(string name)
+        {
+            return _dbSet
+                .FirstOrDefault(product => product.Name == name);
+        }
+
         public List<Product> GetProductsWithPrice(int price)
         {
             return _dbSet
                 .Where(product => product.Price == price)
+                .ToList();
+        }
+
+        public List<Product> GetMostPopularProducts()
+        {
+            var productMaxOrders = _dbSet
+                .Max(product => product.ProductOrders
+                    .Sum(orderProduct => orderProduct.Quantity));
+
+            return _dbSet
+                .Where(product => product.ProductOrders
+                    .Sum(orderProduct => orderProduct.Quantity) == productMaxOrders)
                 .ToList();
         }
     }
