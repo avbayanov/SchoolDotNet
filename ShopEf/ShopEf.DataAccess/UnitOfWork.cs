@@ -31,7 +31,6 @@ namespace ShopEf.DataAccess
             if (_transaction != null)
             {
                 Rollback();
-                _transaction.Dispose();
             }
 
             _db.Dispose();
