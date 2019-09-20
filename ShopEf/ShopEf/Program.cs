@@ -66,38 +66,29 @@ namespace ShopEf
 
             using (var unitOfWork = new UnitOfWork(new ShopContext()))
             {
-                using (var transaction = unitOfWork.BeginTransaction())
+                unitOfWork.BeginTransaction();
+
+                var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
+                var orderRepository = unitOfWork.GetRepository<IOrderRepository>();
+
+                var customersWithLastNameCustomer2Ids = customerRepository
+                    .GetCustomersWithLastName("Customer2LastName")
+                    .Select(customer => customer.Id);
+
+                var ordersMadeByThem = customersWithLastNameCustomer2Ids
+                    .SelectMany(customerId => orderRepository
+                        .GetOrdersMadeByCustomerWithId(customerId))
+                    .ToArray();
+
+                Console.WriteLine("Deleting all orders made by customers with Last name == Customer2LastName");
+                Console.WriteLine();
+
+                foreach (var order in ordersMadeByThem)
                 {
-                    try
-                    {
-                        var customerRepository = unitOfWork.GetRepository<ICustomerRepository>();
-                        var orderRepository = unitOfWork.GetRepository<IOrderRepository>();
-
-                        var customersWithLastNameCustomer2Ids = customerRepository
-                            .GetCustomersWithLastName("Customer2LastName")
-                            .Select(customer => customer.Id);
-
-                        var ordersMadeByThem = customersWithLastNameCustomer2Ids
-                            .SelectMany(customerId => orderRepository
-                                .GetOrdersMadeByCustomerWithId(customerId))
-                            .ToArray();
-
-                        Console.WriteLine("Deleting all orders made by customers with Last name == Customer2LastName");
-                        Console.WriteLine();
-
-                        foreach (var order in ordersMadeByThem)
-                        {
-                            orderRepository.Delete(order);
-                        }
-
-                        unitOfWork.Save();
-                        transaction.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        transaction.Rollback();
-                    }
+                    orderRepository.Delete(order);
                 }
+
+                unitOfWork.Save();
             }
 
             using (var unitOfWork = new UnitOfWork(new ShopContext()))
