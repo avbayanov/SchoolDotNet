@@ -1,0 +1,18 @@
+﻿using System.Linq;
+
+namespace Phonebook.DataAccess
+{
+    public interface IRepository
+    {
+    }
+
+    public interface IRepository<T> : IRepository where T : class
+    {
+        void Create(T entity);
+        void Update(T entity);
+        void Delete(T entity);
+        T[] GetAll();
+        T GetById(int id);
+        IQueryable<T> Query();
+    }
+}
