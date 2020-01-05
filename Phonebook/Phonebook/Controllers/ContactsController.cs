@@ -43,7 +43,7 @@ namespace Phonebook.Controllers
         }
 
         [HttpPost]
-        public BaseResponse Remove(List<int> ids)
+        public BaseResponse Remove([FromBody] List<int> ids)
         {
             try
             {
