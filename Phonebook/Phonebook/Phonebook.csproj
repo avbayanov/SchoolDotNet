@@ -207,6 +207,10 @@
       <Project>{587158C6-F98E-4910-8D36-4205140BE786}</Project>
       <Name>Phonebook.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Phonebook.DataAccess\Phonebook.DataAccess.csproj">
+      <Project>{B5607475-24C4-49BE-8330-5892A8DC9780}</Project>
+      <Name>Phonebook.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Phonebook.DataAccess;
+using Phonebook.DataAccess.Migrations;
 
 namespace Phonebook
 {
@@ -19,7 +21,7 @@ namespace Phonebook
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
 
-            //            Database.SetInitializer(new MigrateDatabaseToLatestVersion<PhonebookDbContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<PhonebookDbContext, Configuration>());
         }
     }
 }
