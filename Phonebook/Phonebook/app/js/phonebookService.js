@@ -10,6 +10,6 @@ export default {
     },
 
     removeContact(ids) {
-        return Ajax.post("/api/Contacts/remove", {ids: ids});
+        return Ajax.post("/api/Contacts/remove", ids);
     }
 };

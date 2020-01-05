@@ -179,7 +179,7 @@
 
                     this.contacts = [];
 
-                    response.contacts.forEach(contact => {
+                    response.forEach(contact => {
                         const isContactWasChecked = checkedIdsBeforeLoading.indexOf(contact.id) !== -1 ;
 
                         this.contacts.push({
