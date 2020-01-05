@@ -10,16 +10,14 @@ namespace Phonebook.BusinessLogic
     {
         public List<ContactDto> Get(string term)
         {
-//            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
-//            {
-//                var repository = unitOfWork.GetRepository<IContactRepository>();
-//
-//                return repository.Search(term)
-//                    .Select(MappingExpressions.ContactExpression())
-//                    .ToList();
-//            }
-            
-            throw new System.NotImplementedException();
+            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
+            {
+                var repository = unitOfWork.GetRepository<IContactRepository>();
+
+                return repository.Search(term)
+                    .Select(MappingExpressions.ContactExpression())
+                    .ToList();
+            }
         }
 
         private static void ValidateContact(ContactDto contact)
@@ -44,43 +42,39 @@ namespace Phonebook.BusinessLogic
         {
             ValidateContact(contact);
             
-//            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
-//            {
-//                unitOfWork.BeginTransaction();
-//
-//                var repository = unitOfWork.GetRepository<IContactRepository>();
-//
-//                if (repository.GetByPhoneNumber(contact.PhoneNumber) != null)
-//                {
-//                    throw new PhonebookException("Contact with this phone number already exists");
-//                }
-//
-//                repository.Create(contact.ToEntity());
-//
-//                unitOfWork.Save();
-//            }
+            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
+            {
+                unitOfWork.BeginTransaction();
 
-            throw new System.NotImplementedException();
+                var repository = unitOfWork.GetRepository<IContactRepository>();
+
+                if (repository.GetByPhoneNumber(contact.PhoneNumber) != null)
+                {
+                    throw new PhonebookException("Contact with this phone number already exists");
+                }
+
+                repository.Create(contact.ToEntity());
+
+                unitOfWork.Save();
+            }
         }
 
         public void Remove(List<int> ids)
         {
-//            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
-//            {
-//                unitOfWork.BeginTransaction();
-//
-//                var repository = unitOfWork.GetRepository<IContactRepository>();
-//
-//                foreach (var id in ids)
-//                {
-//                    var contact = repository.GetById(id);
-//                    repository.Delete(contact);
-//                }
-//
-//                unitOfWork.Save();
-//            }
+            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
+            {
+                unitOfWork.BeginTransaction();
 
-            throw new System.NotImplementedException();
+                var repository = unitOfWork.GetRepository<IContactRepository>();
+
+                foreach (var id in ids)
+                {
+                    var contact = repository.GetById(id);
+                    repository.Delete(contact);
+                }
+
+                unitOfWork.Save();
+            }
         }
     }
 }
