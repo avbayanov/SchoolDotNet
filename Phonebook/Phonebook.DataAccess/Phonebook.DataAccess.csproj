@@ -54,6 +54,11 @@
     <Compile Include="BaseEfRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Migrations\202001051034267_InitialMigartion.cs" />
+    <Compile Include="Migrations\202001051034267_InitialMigartion.designer.cs">
+      <DependentUpon>202001051034267_InitialMigartion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="PhonebookDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,7 +66,11 @@
     <Compile Include="Repositories\IContactRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202001051034267_InitialMigartion.resx">
+      <DependentUpon>202001051034267_InitialMigartion.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
