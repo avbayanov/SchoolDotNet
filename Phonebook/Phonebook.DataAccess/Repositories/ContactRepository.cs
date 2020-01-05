@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using Phonebook.DataAccess.Models;
 
 namespace Phonebook.DataAccess.Repositories
@@ -18,14 +19,9 @@ namespace Phonebook.DataAccess.Repositories
                 return _dbSet;
             }
             
-            return _dbSet.Where(c => ContainsIgnoreCase(c.FirstName, term)
-                                        || ContainsIgnoreCase(c.LastName, term)
-                                        || ContainsIgnoreCase(c.PhoneNumber, term));
-        }
-
-        private static bool ContainsIgnoreCase(string str, string substring)
-        {
-            return str.IndexOf(substring, StringComparison.InvariantCultureIgnoreCase) >= 0;
+            return _dbSet.Where(c => c.FirstName.Contains(term) 
+                                     || c.LastName.Contains(term) 
+                                     || c.PhoneNumber.Contains(term));
         }
 
         public Contact GetByPhoneNumber(string phoneNumber)
