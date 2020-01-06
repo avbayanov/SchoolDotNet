@@ -37,6 +37,7 @@ namespace Phonebook
             RegisterServices(kernel);
             return kernel;
         }
+        
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IContactsHandlers>().ToMethod(ctx => new ContactsHandlers());
