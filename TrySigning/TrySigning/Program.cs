@@ -1,4 +1,5 @@
-﻿using SignedAssembly;
+﻿using System;
+using SignedAssembly;
 
 namespace TrySigning
 {
@@ -6,7 +7,15 @@ namespace TrySigning
     {
         static void Main(string[] args)
         {
+#if DEBUG
+            Console.WriteLine("Debug mode");
+#endif
+
+            #region CallUtils
+
             Utilities.SayHello();
+
+            #endregion
         }
     }
 }
