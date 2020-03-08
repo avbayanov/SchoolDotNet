@@ -1,4 +1,4 @@
-import Ajax from "./ajax";
+import Ajax from "../common/ajax";
 
 export default {
     getContacts(searchTerm) {

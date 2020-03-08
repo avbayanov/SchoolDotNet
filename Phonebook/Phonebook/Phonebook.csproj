@@ -165,9 +165,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\js\ajax.js" />
+    <Content Include="app\js\common\ajax.js" />
     <Content Include="app\js\entry.js" />
-    <Content Include="app\js\phonebookService.js" />
+    <Content Include="app\js\services\phonebookService.js" />
     <Content Include="app\webpack.config.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -187,10 +187,10 @@
     <Folder Include="Public\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\js\AddContactForm.vue" />
-    <Content Include="app\js\BatchRemovePopup.vue" />
-    <Content Include="app\js\Phonebook.vue" />
-    <Content Include="app\js\RemoveModal.vue" />
+    <Content Include="app\js\components\AddContactForm.vue" />
+    <Content Include="app\js\components\BatchRemovePopup.vue" />
+    <Content Include="app\js\components\Phonebook.vue" />
+    <Content Include="app\js\components\RemoveModal.vue" />
     <Content Include="app\package.json" />
     <Content Include="app\scss\sidebar.scss" />
     <Content Include="app\scss\sidebarWidth.scss" />

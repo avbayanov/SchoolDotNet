@@ -4,7 +4,7 @@
             <span class="navbar-brand mb-0 h1">Phonebook</span>
             <button @click="isSidebarActive = !isSidebarActive"
                     id="sidebarCollapse" class="btn btn-primary ml-sm-1 mt-1 mt-sm-0 mr-sm-1 mr-md-0 sidebarCollapse" type="button">Add&nbsp;contact</button>
-            <form @submit.prevent="loadContacts()" class="form-inline w-100 my-1 my-sm-0 d-flex flex-sm-row">
+            <form @submit.prevent="loadContacts" class="form-inline w-100 my-1 my-sm-0 d-flex flex-sm-row">
                 <input v-model.lazy.trim="search"
                        class="form-control flex-grow-1" id="new-note-input" type="text" placeholder="Search">
             </form>
@@ -99,7 +99,7 @@
     import $ from "jquery";
     import "bootstrap";
 
-    import phonebookService from "./phonebookService";
+    import phonebookService from "../services/phonebookService";
 
     import AddContactFormComponent from "./AddContactForm.vue";
     import BatchRemovePopupComponent from "./BatchRemovePopup.vue";
@@ -159,7 +159,7 @@
             removeContacts: function () {
                 this.isLoading = true;
 
-                phonebookService.removeContact(this.removeTargets.ids).done(response => {
+                phonebookService.removeContact(this.removeTargets.ids).done(() => {
                     this.loadContacts();
                 }).fail(() => {
                     this.setLoadingError("Can't remove contact" + this.removeTargets.ids > 1 ? "s" : "");
