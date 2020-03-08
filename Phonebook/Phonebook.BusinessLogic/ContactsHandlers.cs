@@ -8,16 +8,20 @@ namespace Phonebook.BusinessLogic
 {
     public class ContactsHandlers : IContactsHandlers
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ContactsHandlers(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public List<ContactDto> Get(string term)
         {
-            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
-            {
-                var repository = unitOfWork.GetRepository<IContactRepository>();
+            var repository = _unitOfWork.GetRepository<IContactRepository>();
 
-                return repository.Search(term)
-                    .Select(MappingExpressions.ContactExpression())
-                    .ToList();
-            }
+            return repository.Search(term)
+                .Select(MappingExpressions.ContactExpression())
+                .ToList();
         }
 
         private static void ValidateContact(ContactDto contact)
@@ -42,39 +46,33 @@ namespace Phonebook.BusinessLogic
         {
             ValidateContact(contact);
             
-            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
+            _unitOfWork.BeginTransaction();
+
+            var repository = _unitOfWork.GetRepository<IContactRepository>();
+
+            if (repository.GetByPhoneNumber(contact.PhoneNumber) != null)
             {
-                unitOfWork.BeginTransaction();
-
-                var repository = unitOfWork.GetRepository<IContactRepository>();
-
-                if (repository.GetByPhoneNumber(contact.PhoneNumber) != null)
-                {
-                    throw new PhonebookException("Contact with this phone number already exists");
-                }
-
-                repository.Create(contact.ToEntity());
-
-                unitOfWork.Save();
+                throw new PhonebookException("Contact with this phone number already exists");
             }
+
+            repository.Create(contact.ToEntity());
+
+            _unitOfWork.Save();
         }
 
         public void Remove(List<int> ids)
         {
-            using (var unitOfWork = new UnitOfWork(new PhonebookDbContext()))
+            _unitOfWork.BeginTransaction();
+
+            var repository = _unitOfWork.GetRepository<IContactRepository>();
+
+            foreach (var id in ids)
             {
-                unitOfWork.BeginTransaction();
-
-                var repository = unitOfWork.GetRepository<IContactRepository>();
-
-                foreach (var id in ids)
-                {
-                    var contact = repository.GetById(id);
-                    repository.Delete(contact);
-                }
-
-                unitOfWork.Save();
+                var contact = repository.GetById(id);
+                repository.Delete(contact);
             }
+
+            _unitOfWork.Save();
         }
     }
 }

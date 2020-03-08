@@ -3,9 +3,11 @@ using Ninject;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 using System;
+using System.Data.Entity;
 using System.Web;
 using Phonebook;
 using Phonebook.BusinessLogic;
+using Phonebook.DataAccess;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
@@ -34,13 +36,16 @@ namespace Phonebook
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+            kernel.Bind<DbContext>().To<PhonebookDbContext>().InRequestScope();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
+
             RegisterServices(kernel);
             return kernel;
         }
-        
+
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IContactsHandlers>().ToMethod(ctx => new ContactsHandlers());
+            kernel.Bind<IContactsHandlers>().To<ContactsHandlers>();
         }
     }
 }
