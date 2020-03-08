@@ -18,14 +18,17 @@ namespace Phonebook.DataAccess
             
             modelBuilder.Entity<Contact>()
                 .Property(c => c.FirstName)
+                .IsRequired()
                 .HasMaxLength(100);
 
             modelBuilder.Entity<Contact>()
                 .Property(c => c.LastName)
+                .IsRequired()
                 .HasMaxLength(100);
 
             modelBuilder.Entity<Contact>()
                 .Property(c => c.PhoneNumber)
+                .IsRequired()
                 .HasMaxLength(30);
 
             base.OnModelCreating(modelBuilder);
