@@ -247,7 +247,7 @@
 </script>
 
 <style lang="scss">
-    @import "../scss/sidebar";
+    @import "../../scss/sidebar";
 
     [v-cloak] {
         display: none;

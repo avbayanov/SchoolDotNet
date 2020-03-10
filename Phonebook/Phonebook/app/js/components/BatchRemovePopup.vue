@@ -23,7 +23,7 @@
 </script>
 
 <style lang="scss">
-    @import "../scss/sidebarWidth";
+    @import "../../scss/sidebarWidth";
 
     .batch-delete-popup {
         position: fixed;
