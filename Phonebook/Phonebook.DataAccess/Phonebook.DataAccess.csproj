@@ -58,6 +58,10 @@
     <Compile Include="Migrations\202001051034267_InitialMigartion.designer.cs">
       <DependentUpon>202001051034267_InitialMigartion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003100721351_SetStringsNotNull.cs" />
+    <Compile Include="Migrations\202003100721351_SetStringsNotNull.designer.cs">
+      <DependentUpon>202003100721351_SetStringsNotNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="PhonebookDbContext.cs" />
@@ -69,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001051034267_InitialMigartion.resx">
       <DependentUpon>202001051034267_InitialMigartion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003100721351_SetStringsNotNull.resx">
+      <DependentUpon>202003100721351_SetStringsNotNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
